@@ -1,51 +1,86 @@
 package chapter3.variantb.task3;
 
-import java.util.Arrays;
 import java.util.Objects;
-import java.util.OptionalDouble;
 
 public class QuadraticEquation {
     private final double a;
     private final double b;
     private final double c;
-    private double firstRoot;
-    private double secondRoot;
+    private final double firstRoot;
+    private final double secondRoot;
 
 
     public QuadraticEquation(double a, double b, double c) {
+        if (a == 0) throw new IllegalArgumentException(" a can't be 0 ");
         this.a = a;
         this.b = b;
         this.c = c;
-        if (this.a == 0) throw new IllegalArgumentException(" a can't be 0 ");
+        this.firstRoot = findRoots()[0];
+        this.secondRoot = findRoots()[1];
+
+
     }
-
-
-    public QuadraticEquation sum(QuadraticEquation that) {
-        double a = this.getA() + that.getA();
-        double b = this.getB() + that.getB();
-        double c = this.getC() + that.getC();
-        return new QuadraticEquation(a, b, c);
-    }
-
 
     public double findExtreme() {
-        double x;
-        double determinant = findDeterminant(getA(), getB(), getC());
-        x = determinant / 4 * getA();
-        return x;
+        double extreme;
+        double determinant = findDeterminant();
+        extreme = determinant / 4 * getA();
+        return extreme;
     }
 
-    public void findGrowAndDecay() {
-        if (getA() > 0) {
-            System.out.println("function decay (-Infinity;" + findExtreme() + "]" + "and growth [" + findExtreme() + ";Infinity)");
+    public static GrowAndDecay findFunctionIntervals(QuadraticEquation quadraticEquation) {
+        String decay;
+        String grow;
+        if (quadraticEquation.getA() > 0) {
+            decay = "(-Infinity;" + quadraticEquation.findExtreme() + "]";
+            grow = "[" + quadraticEquation.findExtreme() + ";Infinity)";
+        } else {
+            decay = "[" + quadraticEquation.findExtreme() + ";Infinity)";
+            grow = "(-Infinity;" + quadraticEquation.findExtreme() + "]";
         }
-        System.out.println();
-        if (getA() < 0)
-            System.out.println("function decay [" + findExtreme() + ";Infinity) and growth (-Infinity;" + findExtreme() + ")");
+        return new GrowAndDecay(decay, grow);
+
+    }
+
+    private static class GrowAndDecay {
+        String grow;
+        String decay;
+
+        public GrowAndDecay(String grow, String decay) {
+            this.grow = grow;
+            this.decay = decay;
+        }
+
+        public static void findFunctionIntervals(QuadraticEquation quadraticEquation) {
+            if (quadraticEquation.getA() > 0) {
+                System.out.println("function decay (-Infinity;" + quadraticEquation.findExtreme() + "]" +
+                        "and growth [" + quadraticEquation.findExtreme() + ";Infinity)");
+            } else {
+                System.out.println("function decay [" + quadraticEquation.findExtreme() +
+                        ";Infinity) and function grow (-Infinity;" + quadraticEquation.findExtreme() + "]");
+            }
+        }
+
+
+        public String getGrow() {
+            return grow;
+        }
+
+        @Override
+        public String toString() {
+            return "GrowAndDecay{" +
+                    "grow='" + grow + '\'' +
+                    ", decay='" + decay + '\'' +
+                    '}';
+        }
+
+        public String getDecay() {
+            return decay;
+        }
     }
 
 
-    public static double findDeterminant(double a, double b, double c) {
+    public double findDeterminant() {
         double determinant;
         determinant = (b * b - (4 * a * c));
         return determinant;
@@ -53,8 +88,10 @@ public class QuadraticEquation {
 
 
     public double[] findRoots() {
-        double determinant = findDeterminant(getA(), getB(), getC());
+        double determinant = findDeterminant();
         if (determinant < 0) throw new IllegalArgumentException("no roots");
+        double firstRoot;
+        double secondRoot;
         if (determinant > 0) {
             firstRoot = (-getB() + Math.sqrt(determinant)) / (2 * getA());
             secondRoot = (-getB() - Math.sqrt(determinant)) / (2 * getA());
@@ -63,14 +100,14 @@ public class QuadraticEquation {
     }
 
 
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         QuadraticEquation that = (QuadraticEquation) o;
-        return Double.compare(that.a, a) == 0 && Double.compare(that.b, b) == 0 && Double.compare(that.c, c) == 0 && Double.compare(that.firstRoot, firstRoot) == 0 && Double.compare(that.secondRoot, secondRoot) == 0;
+        return Double.compare(that.a, a) == 0 && Double.compare(that.b, b) == 0 &&
+                Double.compare(that.c, c) == 0 && Double.compare(that.firstRoot, firstRoot) == 0 &&
+                Double.compare(that.secondRoot, secondRoot) == 0;
     }
 
     @Override
@@ -86,6 +123,14 @@ public class QuadraticEquation {
                 ", b=" + b +
                 ", c=" + c +
                 '}';
+    }
+
+    public double getSecondRoot() {
+        return secondRoot;
+    }
+
+    public double getFirstRoot() {
+        return firstRoot;
     }
 
     public double getA() {

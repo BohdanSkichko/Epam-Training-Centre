@@ -2,6 +2,7 @@ package chapter1.variantb;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.stream.IntStream;
 
 public class BothOrderSortedNumberPrinter {
@@ -11,6 +12,7 @@ public class BothOrderSortedNumberPrinter {
         Integer[] IntegerNumber = IntStream.of(number).boxed().toArray(Integer[]::new);
         Arrays.sort(IntegerNumber, Collections.reverseOrder());
         System.out.println(Arrays.toString(IntegerNumber));
+
 
         /*List<Integer> inputList = IntStream.of(number).boxed().collect(Collectors.toList());
         Collections.sort(inputList);

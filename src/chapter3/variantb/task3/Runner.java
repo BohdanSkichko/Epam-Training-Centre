@@ -16,17 +16,12 @@ public class Runner {
         quadraticEquations[1] = new QuadraticEquation(-12, 12, 4);
         quadraticEquations[2] = new QuadraticEquation(8, 19, 2);
         quadraticEquations[3] = new QuadraticEquation(-20, -2, 3);
-        System.out.println(Arrays.toString(quadraticEquations[0].findRoots()));
-        System.out.println(Arrays.toString(quadraticEquations[1].findRoots()));
-        System.out.println(Arrays.toString(quadraticEquations[2].findRoots()));
-        System.out.println(Arrays.toString(quadraticEquations[3].findRoots()));
-//        QuadraticEquation.GrowAndDecay.findFunctionIntervals(quadraticEquation1);
-        System.out.println(QuadraticEquation.findFunctionIntervals(quadraticEquation));
 
+        System.out.println(quadraticEquations[0].findRoots());
+        System.out.println(quadraticEquation.findFunctionIntervals());
 
         System.out.println(findMinRoot(quadraticEquations));
         System.out.println(findMaxRoot(quadraticEquations));
-
 
         System.out.println(quadraticEquation.findExtreme());
         System.out.println(quadraticEquation1.findExtreme());

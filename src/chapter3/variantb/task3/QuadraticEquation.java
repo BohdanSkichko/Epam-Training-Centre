@@ -1,6 +1,7 @@
 package chapter3.variantb.task3;
 
 
+import java.security.KeyPairGenerator;
 import java.util.Objects;
 
 
@@ -49,7 +50,7 @@ public class QuadraticEquation {
     }
 
 
-    public Pair findRoots() {
+    public Root findRoots() {
         double determinant = findDeterminant();
         if (determinant < 0) throw new IllegalArgumentException("no roots");
         double firstRoot;
@@ -58,7 +59,8 @@ public class QuadraticEquation {
             firstRoot = (-getB() + Math.sqrt(determinant)) / (2 * getA());
             secondRoot = (-getB() - Math.sqrt(determinant)) / (2 * getA());
         } else firstRoot = secondRoot = -getB() / (2 * getA());
-        return new Pair(firstRoot, secondRoot);
+        return new Root(firstRoot, secondRoot);
+
     }
 
     private record GrowAndDecay(String grow, String decay) {
@@ -73,7 +75,7 @@ public class QuadraticEquation {
         }
     }
 
-    private record Pair(double first, double second) {
+    private record Root(double first, double second) {
 
         public double getFirst() {
             return first;

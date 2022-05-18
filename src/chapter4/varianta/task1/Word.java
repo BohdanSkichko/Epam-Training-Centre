@@ -1,5 +1,6 @@
 package chapter4.varianta.task1;
 
+import java.util.Locale;
 import java.util.Objects;
 
 public class Word {
@@ -10,10 +11,11 @@ public class Word {
         this.word = word;
     }
 
+
+
     @Override
     public String toString() {
-        return word;
-
+        return word.trim();
     }
 
     public String getWord() {

@@ -5,24 +5,28 @@ import java.util.List;
 import java.util.Objects;
 
 public class Sentence {
-    String sentence;
+
     private final List<Word> wordList = new ArrayList<>();
+
+
     public void addWord(Word w) {
-        if (w.getWord() != null)
-        wordList.add(w);
+         if (w.getWord() != null)
+            wordList.add(w);
     }
-//    Sentence(){
-//        this.sentence = getWordList();
-//    }
+
 
     public List<Word> getWordList() {
         return wordList;
     }
 
+
     @Override
     public String toString() {
-        return  wordList.toString();
-
+        String formatter = wordList.toString()
+                .replace(",", "")
+                .replace("[", "")
+                .replace("]", "");
+        return formatter;
     }
 
     @Override

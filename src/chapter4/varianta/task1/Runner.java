@@ -3,9 +3,9 @@ package chapter4.varianta.task1;
 public class Runner {
     public static void main(String[] args) {
         Word word = new Word("hello");
-        Word word1 = new Word("java");
-        Word word2 = new Word("!!!!");
-        Word word3 = new Word(null);
+        Word word1 = new Word("   java");
+        Word word2 = new Word("   one");
+        Word word3 = new Word("two   ");
 
         Sentence sentence = new Sentence();
         sentence.addWord(word);
@@ -22,9 +22,15 @@ public class Runner {
         Text text = new Text();
         text.addSentence(sentence);
         text.addSentence(sentence1);
+        text.addSentence(sentence);
+        text.addSentence(sentence1);
+        text.addSentence(sentence1);
 
-        text.addWord(word);
+        text.setHeader("Hello World");
+        text.printHeader();
         text.printText();
+
+
 
 
     }

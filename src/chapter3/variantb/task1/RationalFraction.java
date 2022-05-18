@@ -52,7 +52,7 @@ public class RationalFraction {
     public static RationalFraction createSimplified(int numerator, int denominator) {
 
         int gcd = findGcd(numerator, denominator);
-        if (gcd < 1) return new RationalFraction(numerator, denominator);
+        if (gcd == 1) return new RationalFraction(numerator, denominator);
         numerator = numerator / gcd;
         denominator = denominator / gcd;
 

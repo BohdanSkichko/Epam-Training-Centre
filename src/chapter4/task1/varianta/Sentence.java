@@ -1,17 +1,21 @@
-package chapter4.varianta.task1;
+package chapter4.task1.varianta;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Sentence {
 
     private final List<Word> wordList = new ArrayList<>();
 
 
-    public void addWord(Word w) {
-         if (w.getWord() != null)
-            wordList.add(w);
+    public void addWord(Word someWord) {
+        if (wordList.isEmpty()) {
+            wordList.add(someWord.UppercaseFirstLetters());
+        } else {
+            wordList.add(someWord);
+        }
     }
 
 
@@ -22,11 +26,10 @@ public class Sentence {
 
     @Override
     public String toString() {
-        String formatter = wordList.toString()
-                .replace(",", "")
-                .replace("[", "")
-                .replace("]", "");
-        return formatter;
+        return wordList.stream()
+                .map(Word::toString)
+                .collect(Collectors.joining(" ","","."));
+
     }
 
     @Override

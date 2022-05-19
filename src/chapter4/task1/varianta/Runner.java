@@ -1,4 +1,4 @@
-package chapter4.varianta.task1;
+package chapter4.task1.varianta;
 
 public class Runner {
     public static void main(String[] args) {
@@ -19,7 +19,7 @@ public class Runner {
         sentence1.addWord(word3);
 
 
-        Text text = new Text();
+        TextImp text = new TextImp();
         text.addSentence(sentence);
         text.addSentence(sentence1);
         text.addSentence(sentence);

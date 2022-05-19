@@ -1,4 +1,4 @@
-package chapter4.varianta.task1;
+package chapter4.task1.varianta;
 
 public interface Text {
     void printText();

@@ -1,21 +1,45 @@
 package chapter4.task1.variantb;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Directory extends File {
-   private String name;
+    private final List<File> files = new ArrayList<>();
 
-
-    public String getName() {
-        return name;
+    public Directory(String name, File parent) {
+        super(name, parent);
     }
 
-    public void setName(String name) {
-        this.name = name;
+
+    @Override
+    void showContent() {
+
+        for (File f : files)
+            System.out.print(getName(f));
     }
 
-    public Directory(String name) {
-        super();
-        this.name = name;
+    @Override
+    public File renameTo(String name) {
+        if (name == null) {
+            throw new NullPointerException();
+        }
+        return new Directory(name,this.getParent());
+    }
 
+    static Directory createNew(String name, File parent) {
+        return new Directory(name, parent);
 
     }
+
+    public void addFiles(File f) {
+        files.add(f);
+    }
+
+
+    public List<File> getFiles() {
+        return files;
+    }
+
+
 }
+

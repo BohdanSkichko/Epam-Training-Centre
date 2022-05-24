@@ -6,7 +6,7 @@ import java.util.List;
 public class Directory extends File {
     private final List<File> files = new ArrayList<>();
 
-    public Directory(String name, File parent) {
+    public Directory(String name, Directory parent) {
         super(name, parent);
     }
 
@@ -15,18 +15,11 @@ public class Directory extends File {
     void showContent() {
 
         for (File f : files)
-            System.out.print(getName(f));
+            System.out.println(getName()+" ");
     }
 
-    @Override
-    public File renameTo(String name) {
-        if (name == null) {
-            throw new NullPointerException();
-        }
-        return new Directory(name,this.getParent());
-    }
 
-    static Directory createNew(String name, File parent) {
+    static Directory createNew(String name, Directory parent) {
         return new Directory(name, parent);
 
     }

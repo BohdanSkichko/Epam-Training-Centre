@@ -1,4 +1,4 @@
-package chapter4.task1.varianta;
+package chapter4.varianta.task1;
 
 import java.util.ArrayList;
 import java.util.List;

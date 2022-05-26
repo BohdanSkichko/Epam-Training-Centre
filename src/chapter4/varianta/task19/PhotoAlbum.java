@@ -6,7 +6,7 @@ import java.util.List;
 
 public class PhotoAlbum {
     private final int pages;
-    private List<Page> pageList = new ArrayList<>();
+    private final List<Page> pageList = new ArrayList<>();
 
     public PhotoAlbum(int pages) {
         this.pages = pages;

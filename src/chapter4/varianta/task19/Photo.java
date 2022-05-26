@@ -1,15 +1,10 @@
 package chapter4.varianta.task19;
 
-public class Photo {
+public class Photo  {
     private String name;
-
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getName() {
-        return name;
     }
 
     @Override

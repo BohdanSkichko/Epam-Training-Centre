@@ -15,7 +15,7 @@ public class Directory extends File {
     void showContent() {
 
         for (File f : files)
-            System.out.println(getName()+" ");
+            System.out.println(f.getName() + " ");
     }
 
 
@@ -24,7 +24,7 @@ public class Directory extends File {
 
     }
 
-    public void addFiles(File f) {
+    public void addFile(File f) {
         files.add(f);
     }
 

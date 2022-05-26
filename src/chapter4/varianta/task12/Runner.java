@@ -20,13 +20,13 @@ public class Runner {
 //
 //        textFile.showContent();
 
-        directory2.addFiles(directory1);
-        directory3.addFiles(directory2);
-        directory4.addFiles(textFile);
-        directory4.addFiles(directory3);
-        directory3.showContent();
+        directory2.addFile(directory1);
+        directory3.addFile(directory2);
+        directory4.addFile(textFile);
+        directory4.addFile(directory3);
+        directory4.showContent();
 
-        System.out.println(directory4.pathName());
+        System.out.println(directory4.getPathName());
 
 
     }

@@ -26,7 +26,7 @@ public abstract class File {
         this.getParent().getFiles().remove(this);
     }
 
-    public String pathName() {
+    public String getPathName() {
         List<String> pathname = new ArrayList<>();
         pathname.add(name);
         Directory tempParent = parent;

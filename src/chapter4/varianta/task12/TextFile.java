@@ -28,7 +28,6 @@ public class TextFile extends File {
     void addContent(String content) {
         if (this.content == null) {
             this.content = content;
-            new TextFile(content);
         } else {
             this.content = getContent() + content;
         }

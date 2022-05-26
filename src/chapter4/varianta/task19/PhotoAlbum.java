@@ -5,37 +5,42 @@ import java.util.List;
 
 
 public class PhotoAlbum {
-    private String name;
+    private final int pages;
     private List<Page> pageList = new ArrayList<>();
 
-
-    void addPage(Page somePage) {
-        pageList.add(somePage);
+    public PhotoAlbum(int pages) {
+        this.pages = pages;
     }
 
-
-    int quantityPage(){
-        return  pageList.size();
+    void addPhoto(Photo somePhoto) {
+        if (getPageList().size() == pages && Page.isFullPage()) {
+            throw new UnsupportedOperationException("Can't add new Photo, Album is Full");
+        } else if (getPageList().isEmpty() || Page.isFullPage()) {
+            getPageList().add(new Page());
+        }
+        getPageList().get(getLastElementIndex()).getPhotoList().add(somePhoto);
     }
 
     int quantityPhoto() {
         int quantity = 0;
-        for (int i = 0; i < pageList.size(); i++) {
-            quantity += pageList.get(i).getPhotoList().size();
+        for (Page page : pageList) {
+            quantity = page.getPhotoList().size();
         }
-
         return quantity;
     }
 
-    public PhotoAlbum(String name) {
-        this.name = name;
-    }
 
-    public String getName() {
-        return name;
+    public int getLastElementIndex() {
+        int index;
+        if (!getPageList().isEmpty())
+            index = getPageList().size() - 1;
+        else
+            index = 0;
+        return index;
     }
 
     public List<Page> getPageList() {
         return pageList;
     }
+
 }

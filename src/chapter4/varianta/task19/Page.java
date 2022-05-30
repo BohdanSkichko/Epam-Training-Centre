@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Page {
-    private static final int limitPagePhoto = 4;
-    private static final List<Photo> photoList = new ArrayList<>();
+    private static final int LIMIT_PHOTO_PAGE = 4;
+    private  final List<Photo> photoList = new ArrayList<>();
 
     public Page() {
     }
 
-    public static boolean isFullPage() {
-        return  photoList.size() % limitPagePhoto == 0;
+    public  boolean isFullPage() {
+        return  photoList.size() % LIMIT_PHOTO_PAGE == 0;
 
     }
 

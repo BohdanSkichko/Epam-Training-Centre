@@ -3,7 +3,6 @@ package chapter4.variantb.Gift;
 import chapter4.variantb.Gift.sweets.Caramel;
 import chapter4.variantb.Gift.sweets.Chocolate;
 import chapter4.variantb.Gift.sweets.Cookie;
-import chapter4.variantb.Gift.sweets.Sweet;
 
 public class Runner {
     public static void main(String[] args) {
@@ -29,17 +28,18 @@ public class Runner {
 
         System.out.println(gift);
 
-        gift.sortWeight();
+        gift.sortByWeight();
         System.out.println(gift);
 
 
-        gift.sortSugar();
+        gift.sortBySugar();
         System.out.println(gift);
 
 
 
         System.out.println("range of sugar");
         gift.findSweets(22,24);
+        System.out.println(gift.findSweets(22,24));
 
 
 

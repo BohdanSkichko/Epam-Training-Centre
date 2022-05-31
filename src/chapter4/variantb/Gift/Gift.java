@@ -16,20 +16,22 @@ public class Gift {
         sweetsList.add(someSweet);
     }
 
-    void findSweets(int sugarMin, int sugarMax) {
+    Sweet findSweets(int sugarMin, int sugarMax) {
         for (Sweet s : sweetsList) {
             if (sugarMin <= s.getSugar() && s.getSugar() <= sugarMax) {
-                System.out.println(s);
+                return s;
             }
         }
+        return null;
+
     }
 
-    void sortSugar() {
-        sweetsList.sort(new sugarComparator());
+    void sortBySugar() {
+        sweetsList.sort(Comparator.comparing(Sweet::getSugar));
     }
 
-    void sortWeight() {
-        sweetsList.sort(new weightComparator());
+    void sortByWeight() {
+        sweetsList.sort(Comparator.comparing(Sweet::getWeight));
     }
 
 
@@ -40,23 +42,6 @@ public class Gift {
         }
         return giftWeith;
     }
-
-
-    private static class weightComparator implements Comparator<Sweet> {
-
-        @Override
-        public int compare(Sweet o1, Sweet o2) {
-            return o1.getWeight() - o2.getWeight();
-        }
-    }
-
-    private static class sugarComparator implements Comparator<Sweet> {
-        @Override
-        public int compare(Sweet o1, Sweet o2) {
-            return (int) (o1.getSugar() - o2.getSugar());
-        }
-    }
-
 
     @Override
     public String toString() {

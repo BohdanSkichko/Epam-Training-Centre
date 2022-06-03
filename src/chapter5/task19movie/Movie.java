@@ -24,8 +24,7 @@ public class Movie {
 
     @Override
     public String toString() {
-        String stringBuilder = "Movie " + name + "\n" + "MovieInfo" + "\n" + getMovieInfo();
-        return stringBuilder;
+        return "Movie " + name + "\n" + "MovieInfo" + "\n" + getMovieInfo();
 
     }
 
@@ -69,10 +68,7 @@ public class Movie {
 
         @Override
         public String toString() {
-            return "MovieInfo" + "\n"
-                    + "time: " + time + "\n"
-                    + "genres: " + genres + "\n"
-                    + "filmmaker: " + filmmaker + "\n";
+            return "MovieInfo" + "\n";
         }
     }
 }

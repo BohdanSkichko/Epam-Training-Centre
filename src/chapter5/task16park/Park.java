@@ -31,7 +31,7 @@ public class Park {
                 attractionList.stream().map(Attraction::toString).collect(Collectors.joining(""));
     }
 
-    static class Attraction {
+      static class Attraction {
         private final Double cost;
         private final String time;
         private final Type type;

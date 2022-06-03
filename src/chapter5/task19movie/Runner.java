@@ -6,5 +6,6 @@ public class Runner {
         movie.obtainInfoMovie(2.23,"horror","Chris Hemsworth");
         System.out.println(movie);
 
+
     }
 }

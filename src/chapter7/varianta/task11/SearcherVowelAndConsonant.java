@@ -1,12 +1,10 @@
 package chapter7.varianta.task11;
 
-import chapter7.variantb.task1.Sentence;
-
 import java.util.*;
 
 //Найти, каких букв, гласных или согласных, больше в каждом предложении
 //текста.
-public class VowelConsonant {
+public class SearcherVowelAndConsonant {
 
     private final List<String> sentenceList = new ArrayList<>();
 
@@ -18,7 +16,7 @@ public class VowelConsonant {
         sentenceList.addAll(Arrays.asList(s));
     }
 
-    public void count() {
+    public void printCount() {
         Set<Character> charactersVowels = new HashSet<>();
         for (char ch : "aeiou".toCharArray()) {
             charactersVowels.add(ch);
@@ -42,9 +40,8 @@ public class VowelConsonant {
 
     public static void main(String[] args) {
         String s = "ssaa. Aaasas. wefavsv Daafsa. ASdaadsa, aw as a.";
-        VowelConsonant vowelConsonant = new VowelConsonant();
+        SearcherVowelAndConsonant vowelConsonant = new SearcherVowelAndConsonant();
         vowelConsonant.addSentence(vowelConsonant.Sentence(s));
-        System.out.println(vowelConsonant.sentenceList.size());
-        vowelConsonant.count();
+        vowelConsonant.printCount();
     }
 }

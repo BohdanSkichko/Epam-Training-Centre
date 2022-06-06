@@ -15,13 +15,10 @@ public class QuantityWordPrinter {
 
         Map<String, Integer> wordMap = new HashMap<>();
         for (String w : text) {
-            if (!w.isEmpty()) {
-                Integer count = wordMap.get(w);
-                if (count == null) {
-                    count = 0;
-                }
-                wordMap.put(w, ++count);
+            if (!wordMap.containsKey(w)) {
+                wordMap.put(w,0);
             }
+            wordMap.put(w, wordMap.get(w)+1);
         }
         for (String word : wordMap.keySet()) {
             System.out.println(word + ": " + wordMap.get(word));

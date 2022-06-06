@@ -1,6 +1,4 @@
-package chapter7.task9;
-
-import org.w3c.dom.Text;
+package chapter7.varianta.task9;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -28,8 +26,5 @@ public class QuantityWordPrinter {
         for (String word : wordMap.keySet()) {
             System.out.println(word + ": " + wordMap.get(word));
         }
-
-
     }
-
 }

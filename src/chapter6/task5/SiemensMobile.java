@@ -1,6 +1,6 @@
 package chapter6.task5;
 
-public abstract class SiemensMobile {
+public abstract class SiemensMobile implements Mobile {
     private final String color;
     private final String name;
     private final int phoneNumber;
@@ -18,7 +18,7 @@ public abstract class SiemensMobile {
         if (s.length() < 9) throw new IllegalArgumentException("incorrect number");
     }
 
-    public void calling(int enterNumber) {
+    public void call(int enterNumber) {
         checkNumber(enterNumber);
         System.out.println("calling " + enterNumber);
     }

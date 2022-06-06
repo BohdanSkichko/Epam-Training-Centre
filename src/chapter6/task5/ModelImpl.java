@@ -1,13 +1,13 @@
 package chapter6.task5;
 
-public class ModelImpl extends SiemensMobile implements IMobile<ModelImpl> {
+public class ModelImpl extends SiemensMobile {
 
     public ModelImpl(String color, String name, int phoneNumber, int serialnumber) {
         super(color, name, phoneNumber, serialnumber);
     }
 
     @Override
-    public void charging() {
+    public void charge() {
         System.out.println("phone charging");
     }
 

@@ -14,10 +14,10 @@ public class Movie {
     }
 
 
-    public void obtainInfoMovie(Double time, String generes, String filmmaker) {
+    public void obtainInfoMovie(Double time, String genre, String filmmaker) {
         movieInfo = new MovieInfo();
         movieInfo.setTime(time);
-        movieInfo.setGenres(generes);
+        movieInfo.setGenres(genre);
         movieInfo.setFilmmaker(filmmaker);
 
     }
@@ -29,7 +29,7 @@ public class Movie {
     }
 
     public String getMovieInfo() {
-        return "genres: " + movieInfo.getGenres() + " "
+        return "genre: " + movieInfo.getGenres() + " "
                 + "time: " + movieInfo.getTime() + " "
                 + "filmmaker: " + movieInfo.getFilmmaker();
     }

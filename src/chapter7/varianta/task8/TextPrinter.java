@@ -5,7 +5,7 @@ package chapter7.varianta.task8;
 public class TextPrinter {
     public String deleteTextBetweenCharset(String[] input) {
         String s = String.join(" ", input).
-                replaceAll("[/{/</(/*].*?[/}/(/>/*]", "");
+                replaceAll("[{<(*].*?[}(>*]", "");
         String deleteSpace = s.replaceAll("\s+", " ");
         return deleteSpace.trim();
     }

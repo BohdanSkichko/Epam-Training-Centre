@@ -10,7 +10,7 @@ public class QuantityWordPrinter {
     public void findQuantityWords(String[] input) {
 
         String[] text = Arrays.toString(input).
-                replaceAll("[-.?!)(,:{}<>\\[\\]]", "").
+                replaceAll("[-.?!)(,:{}<>;*\\[\\]]", "").
                 split("\s");
 
         Map<String, Integer> wordMap = new HashMap<>();

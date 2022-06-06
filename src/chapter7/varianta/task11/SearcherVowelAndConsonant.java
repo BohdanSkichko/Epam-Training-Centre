@@ -6,42 +6,73 @@ import java.util.*;
 //текста.
 public class SearcherVowelAndConsonant {
 
-    private final List<String> sentenceList = new ArrayList<>();
+    private static final Set<Character> CHARACTER_SET = new HashSet<>(Arrays.asList('a', 'e', 'i', 'o', 'y', 'u'));
+    private static final List<String> sentenceList = new ArrayList<>();
 
-    public String[] Sentence(String string) {
-        return string.split("(?<=[a-z])\\.\\s+");
+    public SearcherVowelAndConsonant(String text) {
+        sentenceList.addAll(Arrays.asList(text.split("(?<=[a-z])\\.\\s+")));
     }
 
-    public void addSentence(String[] s) {
-        sentenceList.addAll(Arrays.asList(s));
+    public ConsonantAndVowel getCountConsonantAndVowel() {
+        ConsonantAndVowel consonantAndVowel = new ConsonantAndVowel();
+        for (String sentence : sentenceList) {
+            for (char character : sentence.toCharArray()) {
+                if (!Character.isLetter(character)) continue;
+                if (CHARACTER_SET.contains(Character.toLowerCase(character))) {
+                    consonantAndVowel.vowel++;
+                } else consonantAndVowel.consonant++;
+            }
+        }
+        return consonantAndVowel;
     }
 
-    public void printCount() {
-        Set<Character> charactersVowels = new HashSet<>();
-        for (char ch : "aeiou".toCharArray()) {
-            charactersVowels.add(ch);
+    private static class ConsonantAndVowel {
+        private int consonant;
+        private int vowel;
+
+        public ConsonantAndVowel() {
+
         }
-        int consonantCount = 0;
-        int vowelCount = 0;
-        for (String s : sentenceList) {
-            for (char c : s.toCharArray())
-                if (Character.isLetter(c)) {
-                    if (charactersVowels.contains(Character.toLowerCase(c))) {
-                        vowelCount++;
-                    } else consonantCount++;
-                }
+
+        public int getConsonant() {
+            return consonant;
         }
-        if (consonantCount > vowelCount) {
-            System.out.println(consonantCount + "const");
-        } else if (vowelCount > consonantCount) System.out.println(vowelCount + "volue");
-        else System.out.println("vowel == consonant : " + vowelCount);
+
+        public void setConsonant(int consonant) {
+            this.consonant = consonant;
+        }
+
+        public int getVowel() {
+            return vowel;
+        }
+
+        @Override
+        public String toString() {
+            return
+                    "consonant: " + consonant +
+                            "vowel: " + vowel;
+        }
+
+        public void setVowel(int vowel) {
+            this.vowel = vowel;
+        }
+
+        public ConsonantAndVowel(int consonant, int vowel) {
+            this.consonant = consonant;
+            this.vowel = vowel;
+        }
     }
 
 
     public static void main(String[] args) {
-        String s = "ssaa. Aaasas. wefavsv Daafsa. ASdaadsa, aw as a.";
-        SearcherVowelAndConsonant vowelConsonant = new SearcherVowelAndConsonant();
-        vowelConsonant.addSentence(vowelConsonant.Sentence(s));
-        vowelConsonant.printCount();
+        String s = "ssaaa. Aaasas. wefavsv Daafsa. ASdaadsa, aw attts a.";
+        SearcherVowelAndConsonant vowelConsonant = new SearcherVowelAndConsonant(s);
+        System.out.println(vowelConsonant.getCountConsonantAndVowel().getConsonant());
+        vowelConsonant.getCountConsonantAndVowel();
+
     }
 }
+//        if (consonantCount > vowelCount) {
+//            System.out.println(consonantCount + "const");
+//        } else if (vowelCount > consonantCount) System.out.println(vowelCount + "volue");
+//        else System.out.println("vowel == consonant : " + vowelCount);

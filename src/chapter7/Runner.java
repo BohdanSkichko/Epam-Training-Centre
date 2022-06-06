@@ -1,21 +1,23 @@
 package chapter7;
 
-import chapter7.varianta.task7.OnlyLettersPrinter;
-import chapter7.varianta.task8.TextPrinter;
-import chapter7.varianta.task9.QuantityWordPrinter;
+import chapter7.varianta.task7.OnlyLettersTrimmer;
+import chapter7.varianta.task8.TextTrimmer;
+import chapter7.varianta.task9.WordQuantity;
 
 
 public class Runner {
     public static void main(String[] args) {
-        OnlyLettersPrinter onlyLettersPrinter = new OnlyLettersPrinter();
+        OnlyLettersTrimmer onlyLettersPrinter = new OnlyLettersTrimmer();
         System.out.println(onlyLettersPrinter.deleteNonLetters(args));
 
 
-        TextPrinter textPrinter = new TextPrinter();
+        TextTrimmer textPrinter = new TextTrimmer();
         System.out.println(textPrinter.deleteTextBetweenCharset(args));
 
-        QuantityWordPrinter quantity = new QuantityWordPrinter();
-        quantity.findQuantityWords(args);
+        WordQuantity quantity = new WordQuantity();
+        for (String word : quantity.findQuantityWords(args).keySet()) {
+            System.out.println(word + ": " + quantity.findQuantityWords(args).get(word));
+        }
 
     }
 

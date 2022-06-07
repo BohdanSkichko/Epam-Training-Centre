@@ -10,7 +10,7 @@ public class WordQuantity {
     public Map<String, Integer> findQuantityWords(String[] input) {
 
         String[] text = Arrays.toString(input).
-                replaceAll("[-.?!)(,:{}<>;*\\[\\]]", "").
+                replaceAll("[^a-zA-Z]+", " ").
                 split("\\s");
 
         Map<String, Integer> wordMap = new HashMap<>();

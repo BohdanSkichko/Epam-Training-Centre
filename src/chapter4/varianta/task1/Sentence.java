@@ -28,7 +28,7 @@ public class Sentence {
     public String toString() {
         return wordList.stream()
                 .map(Word::toString)
-                .collect(Collectors.joining(" ","","."));
+                .collect(Collectors.joining(" ", "", "."));
 
     }
 
@@ -36,11 +36,12 @@ public class Sentence {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Sentence sentence)) return false;
-        return Objects.equals(getWordList(), sentence.getWordList());
+
+        return getWordList() != null ? getWordList().equals(sentence.getWordList()) : sentence.getWordList() == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getWordList());
+        return getWordList() != null ? getWordList().hashCode() : 0;
     }
 }

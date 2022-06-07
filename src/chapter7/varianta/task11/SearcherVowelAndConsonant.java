@@ -2,8 +2,6 @@ package chapter7.varianta.task11;
 
 import java.util.*;
 
-//Найти, каких букв, гласных или согласных, больше в каждом предложении
-//текста.
 public class SearcherVowelAndConsonant {
 
     private static final Set<Character> CHARACTER_SET = new HashSet<>(Arrays.asList('a', 'e', 'i', 'o', 'y', 'u'));
@@ -13,9 +11,11 @@ public class SearcherVowelAndConsonant {
         sentenceList.addAll(Arrays.asList(text.split("(?<=[a-z])\\.\\s+")));
     }
 
-    public ConsonantAndVowel getCountConsonantAndVowel() {
-        ConsonantAndVowel consonantAndVowel = new ConsonantAndVowel();
+    public Map<String, СountConsonantAndVowel> getCountConsonantAndVowel() {
+        Map<String, СountConsonantAndVowel> consonantAndVowelMap = new LinkedHashMap<>();
         for (String sentence : sentenceList) {
+            СountConsonantAndVowel consonantAndVowel = new СountConsonantAndVowel();
+            consonantAndVowelMap.put(sentence,consonantAndVowel);
             for (char character : sentence.toCharArray()) {
                 if (!Character.isLetter(character)) continue;
                 if (CHARACTER_SET.contains(Character.toLowerCase(character))) {
@@ -23,14 +23,14 @@ public class SearcherVowelAndConsonant {
                 } else consonantAndVowel.consonant++;
             }
         }
-        return consonantAndVowel;
+        return consonantAndVowelMap;
     }
 
-    private static class ConsonantAndVowel {
+    private static class СountConsonantAndVowel {
         private int consonant;
         private int vowel;
 
-        public ConsonantAndVowel() {
+        public СountConsonantAndVowel() {
 
         }
 
@@ -49,30 +49,17 @@ public class SearcherVowelAndConsonant {
         @Override
         public String toString() {
             return
-                    "consonant: " + consonant +
-                            "vowel: " + vowel;
+                    " consonant: " + consonant +
+                            " vowel: " + vowel;
         }
 
         public void setVowel(int vowel) {
             this.vowel = vowel;
         }
 
-        public ConsonantAndVowel(int consonant, int vowel) {
+        public СountConsonantAndVowel(int consonant, int vowel) {
             this.consonant = consonant;
             this.vowel = vowel;
         }
     }
-
-
-    public static void main(String[] args) {
-        String s = "ssaaa. Aaasas. wefavsv Daafsa. ASdaadsa, aw attts a.";
-        SearcherVowelAndConsonant vowelConsonant = new SearcherVowelAndConsonant(s);
-        System.out.println(vowelConsonant.getCountConsonantAndVowel().getConsonant());
-        vowelConsonant.getCountConsonantAndVowel();
-
-    }
 }
-//        if (consonantCount > vowelCount) {
-//            System.out.println(consonantCount + "const");
-//        } else if (vowelCount > consonantCount) System.out.println(vowelCount + "volue");
-//        else System.out.println("vowel == consonant : " + vowelCount);

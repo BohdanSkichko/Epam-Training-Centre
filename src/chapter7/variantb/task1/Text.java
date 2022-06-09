@@ -27,7 +27,7 @@ public class Text {
         List<String> repeatedWord = new ArrayList<>();
         for (Paragraph paragraph : paragraphList) {
             for (Sentence sentence : paragraph.getSentenceList()) {
-                repeatedWord.add(sentence.findMaxRepeatWord());
+                repeatedWord.add(sentence.findMaxRepeatedWord());
             }
         }
         return repeatedWord;

@@ -14,7 +14,7 @@ public class Sentence {
         }
     }
 
-    public String findMaxRepeatWord (){
+    public String findMaxRepeatedWord (){
         String word = "all words repeat only one time";
         int maxCount = 0;
         int count = 0;

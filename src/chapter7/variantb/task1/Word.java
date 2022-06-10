@@ -3,7 +3,7 @@ package chapter7.variantb.task1;
 
 import java.util.Objects;
 
-public class Word extends PunctuationI {
+public class Word extends Punctuation {
     private final String word;
 
     public String getWord() {
@@ -13,18 +13,6 @@ public class Word extends PunctuationI {
     public Word(String word) {
         this.word = word;
     }
-//
-//
-//    public Word UppercaseFirstLetters() {
-//        StringBuilder firstWord = new StringBuilder(word);
-//        int i = 0;
-//        do {
-//            firstWord.replace(i, i + 1, firstWord.substring(i, i + 1).toUpperCase());
-//            i = firstWord.indexOf(" ", i) + 1;
-//        } while (i > 0 && i < firstWord.length());
-//
-//        return new Word(firstWord.toString());
-//    }
 
     @Override
     public boolean equals(Object o) {

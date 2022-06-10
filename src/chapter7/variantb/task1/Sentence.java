@@ -4,72 +4,77 @@ import java.util.*;
 
 public class Sentence {
     private final String sentence;
-    private final List<Word> wordSet = new ArrayList<>();
+    private final List<Word> wordList = new ArrayList<>();
     private static final String WORD_SPLIT = "([^a-zA-Z']+)";
 
-    public void parseWord() {
+    public Sentence(String sentence) {
+        this.sentence = sentence;
+        parseSentence();
+    }
+
+    public void parseSentence() {
         String[] words = sentence.split(WORD_SPLIT);
         for (String word : words) {
-            wordSet.add(new Word(word));
+            wordList.add(new Word(word));
         }
     }
 
-    public String findMaxRepeatedWord (){
+    public boolean isUnique(String word) {
+        for (Word value : wordList) {
+            if (value.getWord().equalsIgnoreCase(word)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public String findMaxRepeatedWord() {
         String word = "all words repeat only one time";
         int maxCount = 0;
         int count = 0;
-        for (int i = 0; i < wordSet.size(); i++) {
-            for (int j = i + 1; j < wordSet.size(); j++) {
-                if (wordSet.get(i).equals(wordSet.get(j))) {
+        for (int i = 0; i < wordList.size(); i++) {
+            for (int j = i + 1; j < wordList.size(); j++) {
+                if (wordList.get(i).getWord().equalsIgnoreCase(wordList.get(j).getWord())) {
                     count++;
                 }
             }
             if (count > maxCount) {
                 maxCount = count;
-                word = String.valueOf(wordSet.get(i));
+                word = String.valueOf(wordList.get(i));
             }
         }
         return word;
     }
 
-
-    public Sentence(String sentence) {
-        this.sentence = sentence;
+    public boolean isSentenceHasRepeatedWord() {
+        for (int i = 0; i < wordList.size(); i++) {
+            for (int j = i + 1; j < wordList.size(); j++) {
+                if (wordList.get(i).getWord().equalsIgnoreCase(wordList.get(j).getWord()))
+                    return true;
+            }
+        }
+        return false;
     }
 
-    public String getSentence() {
-        return sentence;
+
+    public int quantityWords() {
+        return wordList.size();
     }
 
-    public List<Word> getWord() {
-        return wordSet;
+    public List<Word> getWordList() {
+        return wordList;
     }
 
     @Override
     public String toString() {
-        parseWord();
         StringBuilder stringBuilder = new StringBuilder();
-        for (Word word : wordSet){
-            stringBuilder.append(word).append(" ");
+        int count = wordList.size() - 1;
+        for (int i = 0; i < wordList.size(); i++) {
+            if (i < count) {
+                stringBuilder.append(wordList.get(i)).append(" ");
+            } else stringBuilder.append(wordList.get(i)).append(".");
         }
         return stringBuilder.toString();
 
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Sentence sentence1)) return false;
-
-        if (getSentence() != null ? !getSentence().equals(sentence1.getSentence()) : sentence1.getSentence() != null)
-            return false;
-        return wordSet.equals(sentence1.wordSet);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = getSentence() != null ? getSentence().hashCode() : 0;
-        result = 31 * result + wordSet.hashCode();
-        return result;
     }
 }

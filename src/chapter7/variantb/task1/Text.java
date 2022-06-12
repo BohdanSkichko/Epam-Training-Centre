@@ -4,10 +4,12 @@ import java.util.*;
 
 
 public class Text {
+
     private static final String PARAGRAPH_SPLIT = "(\n)";
     private final List<Paragraph> paragraphList = new ArrayList<>();
 
-    public Text() {
+    public Text(String text) {
+        parseText(text);
     }
 
     public void parseText(String input) {
@@ -17,7 +19,7 @@ public class Text {
         }
     }
 
-    public List<String> findRepeatedWord() {
+    public List<String> getRepeatedWord() {
         List<String> repeatedWord = new ArrayList<>();
         for (Paragraph paragraph : paragraphList) {
             for (Sentence sentence : paragraph.getSentenceList()) {
@@ -28,54 +30,121 @@ public class Text {
     }
 
 
-    public int findCountSentenceWithRepeatedWords() {
+    public int getSentenceWithRepeatedWords() {
         int count = 0;
         for (Paragraph paragraph : paragraphList) {
             for (Sentence sentence : paragraph.getSentenceList()) {
-                if (sentence.isSentenceHasRepeatedWord()) {
+                if (sentence.containsRepeatedWord()) {
                     count++;
                 }
             }
         }
         return count;
+
     }
 
-    public List<Sentence> increaseSentenceLenght() {
+    public void printSortedWords() {
+        List<Word> wordList = new ArrayList<>();
+        for (Paragraph paragraph : paragraphList) {
+            for (Sentence sentence : paragraph.getSentenceList()) {
+                wordList.addAll(sentence.getOnlyWords());
+            }
+        }
+        wordList.sort(Comparator.comparing(word -> word.getWord().toLowerCase()));
+        String letter = wordList.get(0).getWord().substring(0, 1);
+        boolean redline = true;
+        for (Word word : wordList) {
+            if (!word.getWord().substring(0, 1).equalsIgnoreCase(letter)) {
+                redline = true;
+                letter = word.getWord().substring(0, 1);
+            }
+            if (redline) {
+                System.out.print("\n\t" + word + " ");
+            } else {
+                System.out.print(word + " ");
+            }
+            redline = false;
+        }
+    }
+    public List<Word> getSortedPercentageVowelsWords() {
+        List<Word> wordList = new ArrayList<>();
+        for (Paragraph paragraph : paragraphList) {
+            for (Sentence sentence : paragraph.getSentenceList()) {
+                wordList.addAll(sentence.getOnlyWords());
+            }
+        }
+        wordList.sort(Comparator.comparing(Word::percentageVowels));
+        return wordList;
+    }
+
+    public Set<Word> getUniqueWordsInterrogateSentences(int lengthWord) {
+        Set<Word> wordList = new HashSet<>();
+        for (Paragraph paragraph : paragraphList) {
+            for (Sentence sentence : paragraph.getSentenceList()) {
+                if (sentence.interrogativeSentence()) {
+                    for (Word word : sentence.getOnlyWords()) {
+                        if (word.toString().length() == lengthWord) {
+                            wordList.add(word);
+                        }
+                    }
+                }
+            }
+        }
+        return wordList;
+    }
+
+    public List<Sentence> removeConsonantStartingWords(int lengthWord) {
+        List<Sentence> sentences = new ArrayList<>();
+        for (Paragraph paragraph : paragraphList) {
+            for (Sentence sentence : paragraph.getSentenceList()) {
+                sentences.add(sentence.removeWordFirstVowelLetter(lengthWord));
+            }
+        }
+        return sentences;
+    }
+
+    public List<Sentence> swapFirstAndLastWordSentence() {
+        List<Sentence> sentences = new ArrayList<>();
+        for (Paragraph paragraph : paragraphList) {
+            for (Sentence sentence : paragraph.getSentenceList()) {
+                sentences.add(sentence.swapFirstAndLastWord());
+            }
+        }
+        return sentences;
+    }
+
+    public List<Sentence> sortSentenceQuantityWords() {
         List<Sentence> sentences = new ArrayList<>();
         for (Paragraph paragraph : paragraphList) {
             sentences.addAll(paragraph.getSentenceList());
         }
-        sentences.sort(Comparator.comparing(Sentence::quantityWords));
+        sentences.sort(Comparator.comparing(sentence -> sentence.getSentenceElements().size()));
         return sentences;
 
     }
 
-    public String UniqueWord() {
-        List<String> wordList = new ArrayList<>();
-        int count = paragraphList.get(0).getSentenceList().get(0).getWordList().size();
-        for (int i = 0; i < count; i++) {
-            wordList.add(String.valueOf(paragraphList.get(0).getSentenceList().get(0).getWordList().get(i)));
+
+    public String getUniqueWord() {
+        List<String> referenceWord = new ArrayList<>();
+        for (int i = 0; i < getParagraphList().get(0).getSentenceList().get(0).getSentenceElements().size(); i++) {
+            referenceWord.add(String.valueOf(paragraphList.get(0).getSentenceList().get(0).getSentenceElements().get(i)));
         }
-        List<String> wordList2 = new ArrayList<>();
+        Set<String> wordSet = new HashSet<>();
         for (Paragraph paragraph : paragraphList) {
             for (Sentence sentence : paragraph.getSentenceList()) {
-                for (Word word : sentence.getWordList()) {
-                    wordList2.add(String.valueOf(word));
+                if (sentence == paragraphList.get(0).getSentenceList().get(0)) continue;
+                for (Word word : sentence.getSentenceElements()) {
+                    wordSet.add(String.valueOf(word).toLowerCase());
                 }
             }
         }
-        for (int i = 0; i < wordList.size(); i++) {
-            for (int j = i + 1; j < wordList2.size(); j++) {
-                if (wordList.get(i).equalsIgnoreCase(wordList2.get(j))){
-                         
-                }
-
+        for (String word : referenceWord) {
+            if (!wordSet.contains(word.toLowerCase())) {
+                return word;
             }
         }
-        return word;
-
+        return null;
     }
-
 
     public List<Paragraph> getParagraphList() {
         return paragraphList;

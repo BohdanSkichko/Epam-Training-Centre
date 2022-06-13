@@ -44,19 +44,21 @@ public class Text {
     }
 
     public void printSortedFirstLetterWord() {
-        List<Word> wordList = new ArrayList<>();
+        List<SentenceElement> wordList = new ArrayList<>();
         for (Paragraph paragraph : paragraphList) {
             for (Sentence sentence : paragraph.getSentenceList()) {
-                wordList.addAll(sentence.getOnlyWords());
+                for (SentenceElement sentenceElement : sentence.getSentenceElements())
+                    if (sentenceElement.isWord())
+                        wordList.add(sentenceElement);
             }
         }
-        wordList.sort(Comparator.comparing(word -> word.getWord().toLowerCase()));
-        String letter = wordList.get(0).getWord().substring(0, 1);
+        wordList.sort(Comparator.comparing(word -> word.getContent().toLowerCase()));
+        String letter = wordList.get(0).getContent().substring(0, 1);
         boolean redline = true;
-        for (Word word : wordList) {
-            if (!word.getWord().substring(0, 1).equalsIgnoreCase(letter)) {
+        for (SentenceElement word : wordList) {
+            if (!word.getContent().substring(0, 1).equalsIgnoreCase(letter)) {
                 redline = true;
-                letter = word.getWord().substring(0, 1);
+                letter = word.getContent().substring(0, 1);
             }
             if (redline) {
                 System.out.print("\n\t" + word + " ");
@@ -72,7 +74,9 @@ public class Text {
         List<Word> wordList = new ArrayList<>();
         for (Paragraph paragraph : paragraphList) {
             for (Sentence sentence : paragraph.getSentenceList()) {
-                wordList.addAll(sentence.getOnlyWords());
+                for (SentenceElement sentenceElement : sentence.getSentenceElements())
+                    if (sentenceElement.isWord())
+                        wordList.add((Word) sentenceElement);
             }
         }
         wordList.sort(Comparator.comparing(Word::getPercentageVowels));
@@ -83,9 +87,9 @@ public class Text {
         List<Word> wordList = new ArrayList<>();
         for (Paragraph paragraph : paragraphList) {
             for (Sentence sentence : paragraph.getSentenceList()) {
-                for (Word word : sentence.getOnlyWords()) {
-                    if (word.isFirstVowelLetter()) {
-                        wordList.add(word);
+                for (SentenceElement word : sentence.getSentenceElements()) {
+                    if (word.isWord() && ((Word) word).isFirstVowelLetter()) {
+                        wordList.add((Word) word);
                     }
                 }
             }
@@ -94,16 +98,15 @@ public class Text {
         return wordList;
     }
 
-    public Set<Word> getUniqueWordsInterrogateSentences(int lengthWord) {
-        Set<Word> wordList = new HashSet<>();
+    public Set<SentenceElement> getUniqueWordsInterrogateSentences(int lengthWord) {
+        Set<SentenceElement> wordList = new HashSet<>();
         for (Paragraph paragraph : paragraphList) {
             for (Sentence sentence : paragraph.getSentenceList()) {
                 if (sentence.interrogativeSentence()) {
-                    for (Word word : sentence.getOnlyWords()) {
-                        if (word.toString().length() == lengthWord) {
+                    for (SentenceElement word : sentence.getSentenceElements())
+                        if (word.isWord() && word.getContent().length() == lengthWord) {
                             wordList.add(word);
                         }
-                    }
                 }
             }
         }
@@ -144,14 +147,15 @@ public class Text {
 
     public String getUniqueWord() {
         List<String> referenceWord = new ArrayList<>();
-        for (int i = 0; i < getParagraphList().get(0).getSentenceList().get(0).getOnlyWords().size(); i++) {
-            referenceWord.add(String.valueOf(paragraphList.get(0).getSentenceList().get(0).getOnlyWords().get(i)));
+        for (int i = 0; i < getParagraphList().get(0).getSentenceList().get(0).getSentenceElements().size(); i++) {
+            if (paragraphList.get(0).getSentenceList().get(0).getSentenceElements().get(i).isWord())
+                referenceWord.add(String.valueOf(paragraphList.get(0).getSentenceList().get(0).getSentenceElements().get(i)));
         }
         Set<String> wordSet = new HashSet<>();
         for (Paragraph paragraph : paragraphList) {
             for (Sentence sentence : paragraph.getSentenceList()) {
                 if (sentence == paragraphList.get(0).getSentenceList().get(0)) continue;
-                for (Word word : sentence.getSentenceElements()) {
+                for (SentenceElement word : sentence.getSentenceElements()) {
                     wordSet.add(String.valueOf(word).toLowerCase());
                 }
             }

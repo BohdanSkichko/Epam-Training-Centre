@@ -5,19 +5,14 @@ import java.util.*;
 
 public class Word extends SentenceElement {
     private static final Set<Character> CHARACTER_SET = new HashSet<>(Arrays.asList('a', 'e', 'i', 'o', 'y', 'u'));
-    private final String word;
-
-    public String getWord() {
-        return word;
-    }
 
     public Word(String word) {
-        this.word = word;
+        super(word);
     }
 
     public boolean isFirstVowelLetter() {
         List<Character> chars = new ArrayList<>();
-        char[] charsWord = word.toCharArray();
+        char[] charsWord =  getContent().toCharArray();
         for (char c : charsWord) {
             chars.add(c);
         }
@@ -26,7 +21,7 @@ public class Word extends SentenceElement {
 
     public char getFirstConsonantLetter() {
         char consonant = 0;
-        for (char character : word.toCharArray()) {
+        for (char character : getContent().toCharArray()) {
             if (!CHARACTER_SET.contains(Character.toLowerCase(character))) {
                 consonant = character;
                 break;
@@ -35,12 +30,12 @@ public class Word extends SentenceElement {
         return consonant;
 
     }
-    
+
     public Double getPercentageVowels() {
-        double length = word.length();
+        double length = getContent().length();
         double percentage;
         int vowel = 0;
-        for (char character : word.toCharArray()) {
+        for (char character : getContent().toCharArray()) {
             if (CHARACTER_SET.contains(Character.toLowerCase(character))) {
                 vowel++;
             }
@@ -51,35 +46,16 @@ public class Word extends SentenceElement {
 
         return percentage;
     }
-
-    public boolean isWord() {
-        for (char character : word.toCharArray()) {
-            if (Character.isLetter(character)) {
-                return true;
-            }
-
-        }
-        return false;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this) return true;
-        if (o == null || o.getClass() != this.getClass()) return false;
-
-        Word word1 = (Word) o;
-        return Objects.equals(word, word1.word) || word != null && word.equals(word1.getWord());
-    }
+//
+//    public boolean isWord() {
+//        for (char character : word.toCharArray()) {
+//            if (Character.isLetter(character)) {
+//                return true;
+//            }
+//
+//        }
+//        return false;
+//    }
 
 
-    @Override
-    public int hashCode() {
-        return getWord() != null ? getWord().hashCode() : 0;
-    }
-
-    @Override
-    public String toString() {
-        return
-                word;
-    }
 }

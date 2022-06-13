@@ -43,7 +43,7 @@ public class Text {
 
     }
 
-    public void printSortedWords() {
+    public void printSortedFirstLetterWord() {
         List<Word> wordList = new ArrayList<>();
         for (Paragraph paragraph : paragraphList) {
             for (Sentence sentence : paragraph.getSentenceList()) {
@@ -65,6 +65,7 @@ public class Text {
             }
             redline = false;
         }
+        System.out.println();
     }
 
     public List<Word> getSortedPercentageVowelsLetters() {
@@ -109,7 +110,7 @@ public class Text {
         return wordList;
     }
 
-    public List<Sentence> removeConsonantStartingWords(int lengthWord) {
+    public List<Sentence> removeVowelStartingWords(int lengthWord) {
         List<Sentence> sentences = new ArrayList<>();
         for (Paragraph paragraph : paragraphList) {
             for (Sentence sentence : paragraph.getSentenceList()) {
@@ -128,6 +129,7 @@ public class Text {
         }
         return sentences;
     }
+
 
     public List<Sentence> sortSentenceQuantityWords() {
         List<Sentence> sentences = new ArrayList<>();

@@ -35,7 +35,7 @@ public class Word extends SentenceElement {
         return consonant;
 
     }
-
+    
     public Double getPercentageVowels() {
         double length = word.length();
         double percentage;

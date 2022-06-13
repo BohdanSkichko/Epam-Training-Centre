@@ -142,8 +142,8 @@ public class Text {
 
     public String getUniqueWord() {
         List<String> referenceWord = new ArrayList<>();
-        for (int i = 0; i < getParagraphList().get(0).getSentenceList().get(0).getSentenceElements().size(); i++) {
-            referenceWord.add(String.valueOf(paragraphList.get(0).getSentenceList().get(0).getSentenceElements().get(i)));
+        for (int i = 0; i < getParagraphList().get(0).getSentenceList().get(0).getOnlyWords().size(); i++) {
+            referenceWord.add(String.valueOf(paragraphList.get(0).getSentenceList().get(0).getOnlyWords().get(i)));
         }
         Set<String> wordSet = new HashSet<>();
         for (Paragraph paragraph : paragraphList) {

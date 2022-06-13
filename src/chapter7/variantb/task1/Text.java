@@ -66,7 +66,7 @@ public class Text {
             redline = false;
         }
     }
-    public List<Word> getSortedPercentageVowelsWords() {
+    public List<Word> getSortedPercentageVowelsLetters() {
         List<Word> wordList = new ArrayList<>();
         for (Paragraph paragraph : paragraphList) {
             for (Sentence sentence : paragraph.getSentenceList()) {

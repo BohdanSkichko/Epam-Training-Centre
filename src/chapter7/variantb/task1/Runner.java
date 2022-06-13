@@ -18,7 +18,7 @@ public class Runner {
 //        System.out.println(text.getUniqueWordsInterrogateSentences(5));
 //        System.out.println(text.removeConsonantStartingWords(1));
 //        text.printSortedWords();
-        System.out.println(text.getSortedPercentageVowelsWords());
+        System.out.println(text.getSortedPercentageVowelsLetters());
     }
 
 }

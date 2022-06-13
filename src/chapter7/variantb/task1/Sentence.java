@@ -17,12 +17,13 @@ public class Sentence {
         String delimiter = punctuationList.toString();
         StringTokenizer st = new StringTokenizer(input, delimiter, true);
         while (st.hasMoreElements()) {
-                if (Character.isLetter(st.toString().charAt(0))) {
-                    sentenceElements.add(new Word(st.nextToken()));
-                } else sentenceElements.add(new Punctuation(st.nextToken()));
+            if (Character.isLetter(st.toString().charAt(0))) {
+                sentenceElements.add(new Word(st.nextToken()));
+            } else sentenceElements.add(new Punctuation(st.nextToken()));
         }
 
     }
+
 
     public Sentence removeWordFirstVowelLetter(int length) {
         sentenceElements.removeIf(word -> ((Word) word).isFirstVowelLetter() && word.toString().length() == length);
@@ -41,8 +42,8 @@ public class Sentence {
 
     public Sentence swapFirstAndLastWord() {
         Word first = null;
-        for (SentenceElement word : sentenceElements){
-            if (word.isWord()){
+        for (SentenceElement word : sentenceElements) {
+            if (word.isWord()) {
                 first = (Word) word;
                 break;
             }
@@ -84,7 +85,7 @@ public class Sentence {
 
     public boolean containsRepeatedWord() {
         for (int i = 0; i < sentenceElements.size(); i++) {
-            if(!sentenceElements.get(i).isWord()) continue;
+            if (!sentenceElements.get(i).isWord()) continue;
             for (int j = i + 1; j < sentenceElements.size(); j++) {
                 if (sentenceElements.get(i).getContent().equalsIgnoreCase(sentenceElements.get(j).getContent()))
                     return true;
@@ -96,6 +97,22 @@ public class Sentence {
     public List<SentenceElement> getSentenceElements() {
         return sentenceElements;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Sentence)) return false;
+
+        Sentence sentence = (Sentence) o;
+
+        return getSentenceElements().equals(sentence.getSentenceElements());
+    }
+
+    @Override
+    public int hashCode() {
+        return getSentenceElements().hashCode();
+    }
+
 
     @Override
     public String toString() {

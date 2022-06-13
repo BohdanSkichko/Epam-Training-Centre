@@ -31,7 +31,7 @@ public class Sentence {
     }
 
 
-    public boolean interrogativeSentence() {
+    public boolean isInterrogativeSentence() {
         for (SentenceElement sentenceElement : sentenceElements) {
             if (sentenceElement.toString().equals("?")) {
                 return true;
@@ -83,7 +83,7 @@ public class Sentence {
         return word;
     }
 
-    public boolean containsRepeatedWord() {
+    public boolean isContainsRepeatedWord() {
         for (int i = 0; i < sentenceElements.size(); i++) {
             if (!sentenceElements.get(i).isWord()) continue;
             for (int j = i + 1; j < sentenceElements.size(); j++) {
@@ -117,7 +117,7 @@ public class Sentence {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        for (SentenceElement sentenceElement : sentenceElements) {
+        for (SentenceElement sentenceElement : getSentenceElements()) {
             stringBuilder.append(sentenceElement);
         }
         return stringBuilder.toString();

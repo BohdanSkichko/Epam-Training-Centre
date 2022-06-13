@@ -21,6 +21,21 @@ public abstract class SentenceElement {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SentenceElement)) return false;
+
+        SentenceElement that = (SentenceElement) o;
+
+        return getContent().equals(that.getContent());
+    }
+
+    @Override
+    public int hashCode() {
+        return getContent().hashCode();
+    }
+
+    @Override
     public String toString() {
         return
                 content;

@@ -12,7 +12,7 @@ public class Word extends SentenceElement {
 
     public boolean isFirstVowelLetter() {
         List<Character> chars = new ArrayList<>();
-        char[] charsWord =  getContent().toCharArray();
+        char[] charsWord = getContent().toCharArray();
         for (char c : charsWord) {
             chars.add(c);
         }
@@ -46,16 +46,4 @@ public class Word extends SentenceElement {
 
         return percentage;
     }
-//
-//    public boolean isWord() {
-//        for (char character : word.toCharArray()) {
-//            if (Character.isLetter(character)) {
-//                return true;
-//            }
-//
-//        }
-//        return false;
-//    }
-
-
 }

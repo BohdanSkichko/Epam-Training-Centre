@@ -10,15 +10,16 @@ public class Runner {
                 "not continuously monitored.");
 
         System.out.println(text);
-//        System.out.println(text.getRepeatedWord());
-//        System.out.println(text.sortSentenceQuantityWords());
-//        System.out.println(text.getSentenceWithRepeatedWords());
-//        System.out.println(text.getUniqueWord());
-//        System.out.println(text.swapFirstAndLastWordSentence());
-//        System.out.println(text.getUniqueWordsInterrogateSentences(5));
-//        System.out.println(text.removeConsonantStartingWords(1));
-//        text.printSortedWords();
+        System.out.println(text.getRepeatedWord());
+        System.out.println(text.sortSentenceQuantityWords());
+        System.out.println(text.getSentenceWithRepeatedWords());
+        System.out.println(text.getUniqueWord());
+        System.out.println(text.swapFirstAndLastWordSentence());
+        System.out.println(text.getUniqueWordsInterrogateSentences(5));
+        System.out.println(text.removeConsonantStartingWords(1));
+        text.printSortedWords();
         System.out.println(text.getSortedPercentageVowelsLetters());
+        System.out.println(text.getSortedSecondConsonantLetter());
     }
 
 }

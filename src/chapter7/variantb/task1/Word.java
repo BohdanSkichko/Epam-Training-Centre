@@ -24,21 +24,32 @@ public class Word extends SentenceElement {
         return CHARACTER_SET.contains(chars.get(0));
     }
 
-    public Double percentageVowels() {
+    public char getFirstConsonantLetter() {
+        char consonant = 0;
+        for (char character : word.toCharArray()) {
+            if (!CHARACTER_SET.contains(Character.toLowerCase(character))) {
+                consonant = character;
+                break;
+            }
+        }
+        return consonant;
+
+    }
+
+    public Double getPercentageVowels() {
         double length = word.length();
-        double sort;
+        double percentage;
         int vowel = 0;
         for (char character : word.toCharArray()) {
-
             if (CHARACTER_SET.contains(Character.toLowerCase(character))) {
                 vowel++;
             }
         }
         if (vowel == 0) {
-            sort = 0;
-        } else sort = vowel / length;
+            percentage = 0;
+        } else percentage = vowel / length;
 
-        return sort;
+        return percentage;
     }
 
     public boolean isWord() {

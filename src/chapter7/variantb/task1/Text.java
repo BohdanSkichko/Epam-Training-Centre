@@ -66,6 +66,7 @@ public class Text {
             redline = false;
         }
     }
+
     public List<Word> getSortedPercentageVowelsLetters() {
         List<Word> wordList = new ArrayList<>();
         for (Paragraph paragraph : paragraphList) {
@@ -73,7 +74,22 @@ public class Text {
                 wordList.addAll(sentence.getOnlyWords());
             }
         }
-        wordList.sort(Comparator.comparing(Word::percentageVowels));
+        wordList.sort(Comparator.comparing(Word::getPercentageVowels));
+        return wordList;
+    }
+
+    public List<Word> getSortedSecondConsonantLetter() {
+        List<Word> wordList = new ArrayList<>();
+        for (Paragraph paragraph : paragraphList) {
+            for (Sentence sentence : paragraph.getSentenceList()) {
+                for (Word word : sentence.getOnlyWords()) {
+                    if (word.isFirstVowelLetter()) {
+                        wordList.add(word);
+                    }
+                }
+            }
+        }
+        wordList.sort(Comparator.comparing(Word::getFirstConsonantLetter));
         return wordList;
     }
 

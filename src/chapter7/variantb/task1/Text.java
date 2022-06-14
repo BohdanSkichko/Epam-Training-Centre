@@ -1,10 +1,6 @@
 package chapter7.variantb.task1;
 
 import java.util.*;
-
-import static java.lang.Math.min;
-
-
 public class Text {
 
     private static final String PARAGRAPH_SPLIT = "(\n)";
@@ -32,7 +28,7 @@ public class Text {
     }
 
 
-    public int getSentenceWithRepeatedWords() {
+    public int getCountSentenceWithRepeatedWords() {
         int count = 0;
         for (Paragraph paragraph : paragraphList) {
             for (Sentence sentence : paragraph.getSentenceList()) {
@@ -46,12 +42,12 @@ public class Text {
     }
 
     public void printSortedFirstLetterWord() {
-        List<SentenceElement> wordList = new ArrayList<>();
+        List<Word> wordList = new ArrayList<>();
         for (Paragraph paragraph : paragraphList) {
             for (Sentence sentence : paragraph.getSentenceList()) {
                 for (SentenceElement sentenceElement : sentence.getSentenceElements())
                     if (sentenceElement.isWord())
-                        wordList.add(sentenceElement);
+                        wordList.add((Word) sentenceElement);
             }
         }
         wordList.sort(Comparator.comparing(word -> word.getContent().toLowerCase()));
@@ -192,22 +188,18 @@ public class Text {
         int start = -1;
         int end = -1;
         int diff = -1;
-
         // Uncomment it to print LPS Length array
         // printf("%d %d ", L[0], L[1]);
         for (i = 2; i < N; i++) {
-
             // get currentLeftPosition iMirror
             // for currentRightPosition i
             iMirror = 2 * C - i;
             L[i] = 0;
             diff = R - i;
-
             // If currentRightPosition i is within
             // centerRightPosition R
             if (diff > 0)
                 L[i] = Math.min(L[iMirror], diff);
-
             // Attempt to expand palindrome centered at
             // currentRightPosition i. Here for odd positions,
             // we compare characters and if match then
@@ -215,18 +207,13 @@ public class Text {
             // we just increment LPS by ONE without
             // any character comparison
             while (((i + L[i]) + 1 < N && (i - L[i]) > 0) &&
-                    (((i + L[i] + 1) % 2 == 0) ||
-                            (text.charAt((i + L[i] + 1) / 2) ==
-                                    text.charAt((i - L[i] - 1) / 2)))) {
+                    (((i + L[i] + 1) % 2 == 0) || (text.charAt((i + L[i] + 1) / 2) == text.charAt((i - L[i] - 1) / 2))))
                 L[i]++;
-            }
-
             if (L[i] > maxLPSLength) // Track maxLPSLength
             {
                 maxLPSLength = L[i];
                 maxLPSCenterPosition = i;
             }
-
             // If palindrome centered at currentRightPosition i
             // expand beyond centerRightPosition R,
             // adjust centerPosition C based on expanded palindrome.
@@ -234,11 +221,9 @@ public class Text {
                 C = i;
                 R = i + L[i];
             }
-
             // Uncomment it to print LPS Length array
             // printf("%d ", L[i]);
         }
-
         start = (maxLPSCenterPosition - maxLPSLength) / 2;
         end = start + maxLPSLength - 1;
         for (i = start; i <= end; i++)

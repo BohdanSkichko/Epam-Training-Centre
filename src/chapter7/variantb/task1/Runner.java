@@ -10,16 +10,16 @@ public class Runner {
                 "not continuously monitored.");
 
         System.out.println(text);
-//        System.out.println(text.getRepeatedWord());
-//        System.out.println(text.sortSentenceQuantityWords());
-//        System.out.println(text.getSentenceWithRepeatedWords());
-//        System.out.println(text.getUniqueWord());
-//        System.out.println(text.swapFirstAndLastWordSentence());
-//        System.out.println(text.getUniqueWordsInterrogateSentences(5));
-//        System.out.println(text.removeVowelStartingWords(2));
-//        text.printSortedFirstLetterWord();
-//        System.out.println(text.getSortedPercentageVowelsLetters());
-//        System.out.println(text.getSortedSecondConsonantLetter());
+        System.out.println(text.getRepeatedWord());
+        System.out.println(text.sortSentenceQuantityWords());
+        System.out.println(text.getCountSentenceWithRepeatedWords());
+        System.out.println(text.getUniqueWord());
+        System.out.println(text.swapFirstAndLastWordSentence());
+        System.out.println(text.getUniqueWordsInterrogateSentences(5));
+        System.out.println(text.removeVowelStartingWords(0));
+        text.printSortedFirstLetterWord();
+        System.out.println(text.getSortedPercentageVowelsLetters());
+        System.out.println(text.getSortedSecondConsonantLetter());
         text.printLongestPalindromicString();
     }
 

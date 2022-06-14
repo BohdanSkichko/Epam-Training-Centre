@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 
 public class Sentence {
-    public static final List<String> punctuationList = new ArrayList<>(Arrays.asList(",", ".", ":", ";", "?", "!", "-", "\""));
     private final List<SentenceElement> sentenceElements = new ArrayList<>();
 
 
@@ -14,7 +13,7 @@ public class Sentence {
     }
 
     private void parseSentence(String input) {
-        String delimiter = punctuationList.toString();
+        String delimiter = Punctuation.getPunctuationList().toString();
         StringTokenizer st = new StringTokenizer(input, delimiter, true);
         while (st.hasMoreElements()) {
             if (Character.isLetter(st.toString().charAt(0))) {

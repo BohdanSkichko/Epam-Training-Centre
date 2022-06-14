@@ -16,11 +16,11 @@ public class Gift {
         sweetsList.add(someSweet);
     }
 
-    Sweet findSweets(int sugarMin, int sugarMax) {
+    Sweet findSweets(int sugarMin, int sugarMax) throws GiftLogicException {
         if (sugarMin < 0 || sugarMin > 100)
-            throw new IllegalArgumentException("incorrect input \"SugarMin\"");
+            throw new GiftLogicException("incorrect input \"SugarMin\"");
         if (sugarMax < sugarMin)
-            throw new IllegalArgumentException("incorrect input \"SugarMax\"");
+            throw new GiftLogicException("incorrect input \"SugarMax\"");
         for (Sweet s : sweetsList) {
             if (sugarMin <= s.getSugar() && s.getSugar() <= sugarMax) {
                 return s;

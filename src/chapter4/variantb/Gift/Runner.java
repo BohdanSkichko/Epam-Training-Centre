@@ -3,9 +3,10 @@ package chapter4.variantb.Gift;
 import chapter4.variantb.Gift.sweets.Caramel;
 import chapter4.variantb.Gift.sweets.Chocolate;
 import chapter4.variantb.Gift.sweets.Cookie;
+import chapter4.variantb.Gift.sweets.SweetLogicException;
 
 public class Runner {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SweetLogicException, GiftLogicException {
         Caramel caramel = new Caramel( 20, 23);
         Chocolate chocolate = new Chocolate(33.3, 50);
         Caramel caramel2 = new Caramel(23.2, 150);

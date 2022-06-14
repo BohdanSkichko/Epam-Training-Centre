@@ -6,6 +6,7 @@ public class Word {
     private final String word;
 
     Word(String word) {
+        if (word == null) throw new NullPointerException("word can't be null");
         this.word = word.trim();
     }
 

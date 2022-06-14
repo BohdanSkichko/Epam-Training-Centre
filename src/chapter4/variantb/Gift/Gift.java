@@ -17,13 +17,16 @@ public class Gift {
     }
 
     Sweet findSweets(int sugarMin, int sugarMax) {
+        if (sugarMin < 0 || sugarMin > 100)
+            throw new IllegalArgumentException("incorrect input \"SugarMin\"");
+        if (sugarMax < sugarMin)
+            throw new IllegalArgumentException("incorrect input \"SugarMax\"");
         for (Sweet s : sweetsList) {
             if (sugarMin <= s.getSugar() && s.getSugar() <= sugarMax) {
                 return s;
             }
         }
         return null;
-
     }
 
     void sortBySugar() {

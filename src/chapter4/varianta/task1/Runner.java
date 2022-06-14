@@ -2,12 +2,14 @@ package chapter4.varianta.task1;
 
 public class Runner {
     public static void main(String[] args) {
+        Word word4 =new Word(null);
         Word word = new Word("hello");
         Word word1 = new Word("   java");
         Word word2 = new Word("   one");
         Word word3 = new Word("two   ");
 
         Sentence sentence = new Sentence();
+        sentence.addWord(word4);
         sentence.addWord(word);
         sentence.addWord(word1);
         sentence.addWord(word);

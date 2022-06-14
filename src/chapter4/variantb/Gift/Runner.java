@@ -6,7 +6,7 @@ import chapter4.variantb.Gift.sweets.Cookie;
 
 public class Runner {
     public static void main(String[] args) {
-        Caramel caramel = new Caramel( 24, 100);
+        Caramel caramel = new Caramel( 20, 23);
         Chocolate chocolate = new Chocolate(33.3, 50);
         Caramel caramel2 = new Caramel(23.2, 150);
         Caramel caramel1 = new Caramel( 20.1, 20);
@@ -38,8 +38,7 @@ public class Runner {
 
 
         System.out.println("range of sugar");
-        gift.findSweets(22,24);
-        System.out.println(gift.findSweets(22,24));
+        System.out.println(gift.findSweets(-1,24));
 
 
 

@@ -13,7 +13,6 @@ public class Directory extends File {
 
     @Override
     void showContent() {
-
         for (File f : files)
             System.out.println(f.getName() + " ");
     }

@@ -6,6 +6,8 @@ public abstract class Sweet implements Comparable<Sweet> {
 
 
     public Sweet(double sugar, int weight) {
+        if (sugar < 0 || sugar > 100) throw new IllegalArgumentException("incorrect value of sugar");
+        if (weight <= 0) throw new IllegalArgumentException("weight can't be zero or negative");
         this.sugar = sugar;
         this.weight = weight;
     }

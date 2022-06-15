@@ -46,4 +46,5 @@ public class Word extends SentenceElement {
 
         return percentage;
     }
+
 }

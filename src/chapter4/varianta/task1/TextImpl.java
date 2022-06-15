@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TextImp implements Text {
+public class TextImpl implements Text {
     private String header;
     private final List<Sentence> sentenceList = new ArrayList<>();
 

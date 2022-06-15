@@ -21,7 +21,7 @@ public class Runner {
         sentence1.addWord(word3);
 
 
-        TextImp text = new TextImp();
+        TextImpl text = new TextImpl();
         text.addSentence(sentence);
         text.addSentence(sentence1);
         text.addSentence(sentence);

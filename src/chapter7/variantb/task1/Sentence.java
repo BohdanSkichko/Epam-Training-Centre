@@ -16,17 +16,17 @@ public class Sentence {
         String delimiter = Punctuation.getPunctuationList().toString();
         StringTokenizer st = new StringTokenizer(input, delimiter, true);
         while (st.hasMoreElements()) {
-            if (Character.isLetter(st.toString().charAt(0))) {
-                sentenceElements.add(new Word(st.nextToken()));
-            } else sentenceElements.add(new Punctuation(st.nextToken()));
+            String nextToken = st.nextToken();
+            if (Character.isLetter(nextToken.charAt(0))) {
+                sentenceElements.add(new Word(nextToken));
+            } else sentenceElements.add(new Punctuation(nextToken));
         }
 
     }
 
 
-    public Sentence removeWordFirstVowelLetter(int length) {
-        sentenceElements.removeIf(word -> ((Word) word).isFirstVowelLetter() && word.toString().length() == length);
-        return new Sentence(sentenceElements.stream().map(SentenceElement::toString).collect(Collectors.joining("")));
+    public void removeWordFirstVowelLetter(int length) {
+        sentenceElements.removeIf(word -> ((Word) word).isFirstVowelLetter() &&  word.toString().length() == length);
     }
 
 
@@ -59,7 +59,7 @@ public class Sentence {
             }
         }
         sentenceElements.add(0, second);
-        return new Sentence(sentenceElements.stream().map(SentenceElement::toString).collect(Collectors.joining("")));
+        return this;
     }
 
 

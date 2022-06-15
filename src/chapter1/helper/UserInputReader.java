@@ -9,8 +9,6 @@ public class UserInputReader {
         int size = scanner.nextInt();
         int[] numbers = new int[size];
         System.out.print("Enter numbers: ");
-
-
         for (int i = 0; i < size; i++) {
             numbers[i] = scanner.nextInt();
         }

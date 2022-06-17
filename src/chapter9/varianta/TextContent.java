@@ -3,7 +3,6 @@ package chapter9.varianta;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Date;
 import java.util.Properties;
 
 public class TextContent {
@@ -23,12 +22,13 @@ public class TextContent {
             } else {
                 throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
             }
-            // get the property value and print it out
+
             result = prop.getProperty("content");
 
         } catch (Exception e) {
             System.out.println("Exception: " + e);
         } finally {
+            assert inputStream != null;
             inputStream.close();
         }
         return result;

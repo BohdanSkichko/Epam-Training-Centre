@@ -120,7 +120,6 @@ public class Text {
     public void removeVowelStartingWords(int lengthWord) {
         for (Paragraph paragraph : paragraphList) {
             for (Sentence sentence : paragraph.getSentenceList()) {
-                if(sentence.getSentenceElements() instanceof Word)
                 sentence.removeWordFirstVowelLetter(lengthWord);
             }
         }

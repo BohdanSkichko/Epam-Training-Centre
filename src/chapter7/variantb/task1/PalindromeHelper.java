@@ -3,9 +3,9 @@ package chapter7.variantb.task1;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LongestPalindrome {
+public class PalindromeHelper {
 
-    static void printPalindrome(Text text) {
+    static void printLongestPalindrome(Text text) {
         List<String> words = new ArrayList<>();
         for (Paragraph paragraph : text.getParagraphList()) {
             for (Sentence sentence : paragraph.getSentenceList()) {

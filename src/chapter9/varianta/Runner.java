@@ -1,12 +1,11 @@
 package chapter9.varianta;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 
-public class ReadDemo {
-    public static void main(String[] args) {
-        EditorSubstring.deleteSubstring("output");
+public class Runner {
+    public static void main(String[] args) throws IOException {
+        TextRedactor.deleteSubstring("put");
+        TextRedactor.replaceSubstring("output", "Input");
+
     }
 }

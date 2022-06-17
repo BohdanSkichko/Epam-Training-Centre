@@ -1,7 +1,6 @@
 package chapter7.variantb.task1;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 public class Sentence {
@@ -26,7 +25,7 @@ public class Sentence {
 
 
     public void removeWordFirstVowelLetter(int length) {
-        sentenceElements.removeIf(word -> ((Word) word).isFirstVowelLetter() &&  word.toString().length() == length);
+        sentenceElements.removeIf(word -> word instanceof  Word && ((Word) word).isFirstVowelLetter() &&  word.toString().length() == length);
     }
 
 

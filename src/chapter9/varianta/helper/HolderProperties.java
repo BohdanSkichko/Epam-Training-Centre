@@ -1,6 +1,6 @@
 package chapter9.varianta.helper;
 
-public enum PropertiesHolder {
+public enum HolderProperties {
     INPUT_PATH("C:\\input.txt"),
     OUT_PATH("C:\\output.txt");
 
@@ -10,7 +10,7 @@ public enum PropertiesHolder {
         return path;
     }
 
-    PropertiesHolder(String path) {
+    HolderProperties(String path) {
         this.path = path;
     }
 

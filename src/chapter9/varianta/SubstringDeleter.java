@@ -7,8 +7,8 @@ import chapter9.varianta.helper.ReadAndWriteProperties;
 public class SubstringDeleter {
     public void delete(String someSubstring) {
         ReadAndWriteProperties readAndWriteProperties = new ReadAndWriteProperties();
-        String result = readAndWriteProperties.read(PropertiesHolder.outputStream.getS())
+        String result = readAndWriteProperties.read(PropertiesHolder.INPUT_PATH.getPath())
                 .replaceAll(someSubstring,"");
-        readAndWriteProperties.writeContentToFile("C:\\output.txt", result);
+        readAndWriteProperties.writeContentToFile(PropertiesHolder.OUT_PATH.getPath(), result);
     }
 }

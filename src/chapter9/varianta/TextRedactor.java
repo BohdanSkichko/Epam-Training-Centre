@@ -13,8 +13,7 @@ public class TextRedactor {
     static void deleteSubstring(String someString) {
         try (InputStream input = TextRedactor.class.getClassLoader().getResourceAsStream("config.properties")) {
             assert input != null;
-            try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(
-                    input));
+            try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(input));
                  BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(
                          "C:\\Users\\Nick\\kre\\src\\resources\\configEdit.properties"))) {
                 String read;

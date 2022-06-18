@@ -23,7 +23,7 @@ public class TextContent {
                 throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
             }
 
-            result = prop.getProperty("content");
+            result = prop.getProperty("fileInput");
 
         } catch (Exception e) {
             System.out.println("Exception: " + e);

@@ -1,18 +1,16 @@
 package chapter9.varianta.helper;
 
 public enum HolderProperties {
-    INPUT_PATH("C:\\input.txt"),
-    OUT_PATH("C:\\output.txt");
+    INPUT_PATH("input"),
+    OUT_PATH("output");
 
-    private final String path;
-
-    public String getPath() {
-        return path;
+    public String getPath(String getProperty) {
+        return GreatStream.path(getProperty);
     }
 
-    HolderProperties(String path) {
-        this.path = path;
+    HolderProperties(String keyPath) {
     }
+
 
 }
 

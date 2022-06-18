@@ -13,7 +13,7 @@ public class Runner {
 //        System.out.println(textRedactor.getWordsWithFirstVowelLetter());
 //        textRedactor.printWordsLastLetterEqualsFirstLetterNext();
         SubstringDeleter substringDeleter = new SubstringDeleter();
-        substringDeleter.delete("error");
+        substringDeleter.delete("err");
 
 
     }

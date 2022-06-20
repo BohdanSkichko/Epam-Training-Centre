@@ -1,19 +1,21 @@
 package chapter9.varianta;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Properties;
+import chapter9.varianta.TextRedactor.SubstringDeleter;
+import chapter9.varianta.TextRedactor.SubstringReplacement;
+import chapter9.varianta.TextRedactor.Words;
+import chapter9.varianta.TextRedactor.WordsWithFirstVowelLetter;
 
 public class Runner {
     public static void main(String[] args) {
-//        TextRedactor.deleteSubstring("put");
-//        TextRedactor.replaceSubstring("output", "Input");
-//        TextRedactor textRedactor = new TextRedactor();
-//        System.out.println(textRedactor.getWordsWithFirstVowelLetter());
-//        textRedactor.printWordsLastLetterEqualsFirstLetterNext();
+
         SubstringDeleter substringDeleter = new SubstringDeleter();
-        substringDeleter.delete("err");
+        substringDeleter.delete("the");
+        SubstringReplacement substringReplacement = new SubstringReplacement();
+        substringReplacement.replace("the", "rooor");
+        WordsWithFirstVowelLetter words = new WordsWithFirstVowelLetter();
+        System.out.println(words.getWords());
+        Words words1 = new Words();
+        words1.wordsPrinter();
 
 
     }

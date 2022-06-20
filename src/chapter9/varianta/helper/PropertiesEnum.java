@@ -1,17 +1,17 @@
 package chapter9.varianta.helper;
 
-public enum HolderProperties {
+public enum PropertiesEnum {
     FILE_INPUT("fileInput"),
     FILE_OUTPUT("fileOutput");
 
 
     public String getPath() {
-        return GreatStream.path(path);
+        return PropertiesReader.getProperties(path);
     }
 
     private final String path;
 
-    HolderProperties(String path) {
+    PropertiesEnum(String path) {
         this.path = path;
     }
 }

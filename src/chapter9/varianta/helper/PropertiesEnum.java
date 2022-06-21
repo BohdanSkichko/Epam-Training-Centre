@@ -1,8 +1,8 @@
 package chapter9.varianta.helper;
 
 public enum PropertiesEnum {
-    FILE_INPUT("fileInput"),
-    FILE_OUTPUT("fileOutput");
+    INPUT_FILE("inputFile"),
+    OUTPUT_FILE("outputFile");
 
 
     public String getPath() {

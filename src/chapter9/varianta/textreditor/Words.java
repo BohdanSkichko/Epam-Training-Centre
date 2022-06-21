@@ -14,7 +14,7 @@ public class Words {
     public void print() {
         List<String> words = new ArrayList<>();
         IOHelper ioHelper = new IOHelper();
-        String content = ioHelper.readFromFile(PropertiesEnum.FILE_INPUT.getPath());
+        String content = ioHelper.readFromFile(PropertiesEnum.INPUT_FILE.getPath());
         for (SentenceElement word : new Sentence(content).getSentenceElements()) {
             if (word instanceof Word) {
                 words.add(String.valueOf(word));
@@ -24,7 +24,7 @@ public class Words {
             int first = 0;
             int last = words.get(i).length() - 1;
             if (words.get(i).charAt(last) == (words.get(i + 1).charAt(first))) {
-                ioHelper.appendWriteToFile(PropertiesEnum.FILE_OUTPUT.getPath(),
+                ioHelper.appendWriteToFile(PropertiesEnum.OUTPUT_FILE.getPath(),
                         "\n" + "first word: " + words.get(i) + " second word: " + words.get(i + 1));
             }
         }

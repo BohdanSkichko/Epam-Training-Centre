@@ -1,7 +1,7 @@
 package chapter9.varianta.textreditor;
 
-import chapter9.varianta.helper.IOHelper;
-import chapter9.varianta.helper.PropertiesEnum;
+import helper.helper.IOHelper;
+import helper.helper.PropertiesEnum;
 
 public class SubstringReplacer {
     public void replace(String oldSubstring, String newSubstring) {

@@ -1,4 +1,4 @@
-package chapter9.varianta.helper;
+package helper.helper;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,4 +1,4 @@
-package chapter9.varianta.helper;
+package helper.helper;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class IOHelper {
-    public String readFromFile(String inputPath) {
+    public  String readFromFile(String inputPath) {
         Path path = Paths.get(inputPath);
         try (Stream<String> lines = Files.lines(path)) {
             return lines.collect(Collectors.joining("\n"));

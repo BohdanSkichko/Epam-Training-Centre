@@ -1,19 +1,19 @@
 package chapter9.variantb.task1;
 
-import chapter9.varianta.helper.IOHelper;
+import helper.helper.IOHelper;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
 
-public class FileWorker {
-    void addRandomNumbersToFile(File file, int quantityNumbers) {
+public class FileHelper {
+    void addRandomNumbersToFile(File file, int numbersQuantity, int rangeNumbers) {
         IOHelper ioHelper = new IOHelper();
-        int[] array = new int[quantityNumbers];
+        int[] array = new int[numbersQuantity];
         for (int i = 0; i < array.length; i++) {
-            array[i] = (int) Math.round((Math.random() * 100) - 15);
-            ioHelper.appendWriteToFile(String.valueOf(file), (array[i] + " "));
+            array[i] = (int) Math.round(Math.random() * rangeNumbers);
+            ioHelper.appendWriteToFile(file.getAbsolutePath(), (array[i] + " "));
         }
     }
 
@@ -41,7 +41,7 @@ public class FileWorker {
             if (newFile.createNewFile()) {
                 System.out.println("File is created!");
             } else {
-                System.out.println("File is already existed!");
+                System.out.println("File is already exist!");
             }
             IOHelper ioHelper = new IOHelper();
             ioHelper.writeToFile(newFile.getAbsolutePath(), content);

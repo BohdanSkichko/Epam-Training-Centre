@@ -1,15 +1,16 @@
 package chapter9.variantb.task1;
 
-import chapter9.varianta.helper.IOHelper;
 
+import helper.helper.PropertiesEnum;
 
 import java.io.File;
 
 public class Runner {
     public static void main(String[] args) {
-        File file = new File("Text.txt");
-        FileWorker fileWorker = new FileWorker();
-        fileWorker.addRandomNumbersToFile(file, 20);
-        fileWorker.writeContentToNewFile("Test2.txt", "C:\\directory\\A", fileWorker.sortFileContent(file));
+        File file = new File(PropertiesEnum.EMPTY.getPath());
+        FileHelper fileWorker = new FileHelper();
+        fileWorker.addRandomNumbersToFile(file, 20,100);
+        fileWorker.writeContentToNewFile(
+                "Sort.txt", PropertiesEnum.DIRECTORY.getPath(), fileWorker.sortFileContent(file));
     }
 }

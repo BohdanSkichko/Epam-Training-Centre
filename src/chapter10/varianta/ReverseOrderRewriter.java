@@ -1,10 +1,11 @@
 package chapter10.varianta;
 
 
-import chapter9.varianta.helper.PropertiesEnum;
+import helper.helper.PropertiesEnum;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 
 public class ReverseOrderRewriter {
@@ -18,12 +19,20 @@ public class ReverseOrderRewriter {
             e.printStackTrace();
         }
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file.getAbsolutePath()))) {
-            for (int i = strings.size() - 1; i >= 0; i--) {
-                writer.write(strings.get(i)+"\n");
+            ListIterator<String> iterator = strings.listIterator(strings.size());
+            while (iterator.hasPrevious()) {
+                writer.write(iterator.previous() + "\n");
             }
+//            for (int i = strings.size() - 1; i >= 0; i--) {
+//                writer.write(strings.get(i)+"\n");
+//            }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    public static void main(String[] args) {
+        ReverseOrderRewriter reverseOrderRewriter = new ReverseOrderRewriter();
+        reverseOrderRewriter.write(new File(PropertiesEnum.INPUT_FILE.getPath()));
     }
 }

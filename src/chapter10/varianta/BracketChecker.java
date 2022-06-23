@@ -1,40 +1,42 @@
 package chapter10.varianta;
 
+import helper.barcketenum.BracketEnum;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class BracketChecker {
-    private static boolean isReverse(char first, char second) {
-        return (first == '(' && second == ')' || first == '[' && second == ']' || first == '{' && second == '}');
+    private static boolean isPair(Character first, Character second) {
+        return (first.equals(BracketEnum.OPEN_PARENTHESES.getaChar()) && second.equals(BracketEnum.CLOSE_PARENTHESES.getaChar())
+                || first.equals(BracketEnum.OPEN_SQUARE.getaChar()) && second.equals(BracketEnum.CLOSE_SQUARE.getaChar())
+                || first.equals(BracketEnum.CLOSE_SQUARE.getaChar()) && second.equals(BracketEnum.CLOSE_SQUARE.getaChar()));
     }
 
-    private Deque<Character> getElements(String input) {
+    private Deque<Character> getBrackets(String input) {
         Deque<Character> characters = new ArrayDeque<>();
         char[] array = input.toCharArray();
-        for (char c : array) {
-            if (c == '(' || c == ')' || c == '[' || c == ']' || c == '{' || c == '}') {
-                characters.add(c);
+        for (Character brackets : array) {
+            if (brackets.equals(BracketEnum.OPEN_PARENTHESES.getaChar()) || brackets.equals(BracketEnum.CLOSE_PARENTHESES.getaChar())
+                    || brackets.equals(BracketEnum.OPEN_SQUARE.getaChar()) || brackets.equals(BracketEnum.CLOSE_SQUARE.getaChar())
+                    || brackets.equals(BracketEnum.OPEN_BRACE.getaChar()) || brackets.equals(BracketEnum.CLOSE_BRACE.getaChar())) {
+                characters.add(brackets);
             }
         }
         return characters;
     }
+
     private boolean check(String input) {
-        boolean check = true;
-        if (getElements(input).size() % 2 != 0) {
+        Deque<Character> characters = getBrackets(input);
+        boolean result = true;
+        if (getBrackets(input).size() % 2 != 0) {
             return false;
         } else
-            for (int i = 0; i < getElements(input).size(); i++) {
-                if (!isReverse(getElements(input).removeFirst(), getElements(input).removeLast())) {
-                    check = false;
+            for (int i = 0; i < characters.size(); i++) {
+                if (!isPair(characters.removeFirst(), characters.removeLast())) {
+                    result = false;
                     break;
                 }
             }
-        return check;
-    }
-
-
-    public static void main(String[] args) {
-        BracketChecker bracketChecker = new BracketChecker();
-        System.out.println(bracketChecker.check("([])"));
+        return result;
     }
 }

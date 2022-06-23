@@ -1,31 +1,37 @@
 package chapter10.variantb;
 
+import helper.randomizer.RandomNumberGenerator;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
 public class Sorter {
-    public ArrayList<Integer> sort(int numbersQuantity, int rangeNumber) {
-        ArrayList<Integer> integers = new ArrayList<>();
-        int[] array = new int[numbersQuantity];
-        for (int i = 0; i < array.length; i++) {
-            array[i] = (int) Math.round(Math.random() * rangeNumber);
-            integers.add(array[i]);
+    private List<Integer> getRandomNumberList(int numbersQuantity, int numbersRange) {
+        List<Integer> integers = new ArrayList<>();
+        int [] numbers = RandomNumberGenerator.getNumbers(numbersQuantity,numbersRange);
+        for (int num : numbers){
+            integers.add(num);
         }
-        for (int i = 0; i < integers.size(); i++) {
-            for (int j = i + 1; j < integers.size(); j++) {
-                if (integers.get(i) > integers.get(j)) {
-                    swap(integers, i, j); // Collections.swap(integers,i,j);
+        return integers;
+
+    }
+
+    public List<Integer> sort(List<Integer> list) {
+        for (int i = 0; i < list.size(); i++) {
+            for (int j = i + 1; j < list.size(); j++) {
+                if (list.get(i) > list.get(j)) {
+                    Collections.swap(list, i, j);
                 }
             }
         }
-        return integers;
-//     return (ArrayList<Integer>) integers.stream()
-//             .sorted(Comparator.comparing(Integer::intValue))
-//             .collect(Collectors.toList());
+        return list;
     }
 
-    private static void swap(List<Integer> list, int i, int j) {
-        list.set(i, list.set(j, list.get(i)));
+    public static void main(String[] args) {
+        Sorter sorter = new Sorter();
+        System.out.println(sorter.sort(sorter.getRandomNumberList(20,100)));
     }
 }

@@ -1,5 +1,5 @@
 package chapter10.varianta;
-import helper.helper.PropertiesEnum;
+import helper.properties.PropertiesEnum;
 
 import java.io.*;
 import java.util.ArrayList;

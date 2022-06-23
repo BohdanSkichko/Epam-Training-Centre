@@ -1,7 +1,7 @@
 package chapter10.varianta;
 
 
-import helper.helper.PropertiesEnum;
+import helper.properties.PropertiesEnum;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -23,16 +23,8 @@ public class ReverseOrderRewriter {
             while (iterator.hasPrevious()) {
                 writer.write(iterator.previous() + "\n");
             }
-//            for (int i = strings.size() - 1; i >= 0; i--) {
-//                writer.write(strings.get(i)+"\n");
-//            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        ReverseOrderRewriter reverseOrderRewriter = new ReverseOrderRewriter();
-        reverseOrderRewriter.write(new File(PropertiesEnum.INPUT_FILE.getPath()));
     }
 }

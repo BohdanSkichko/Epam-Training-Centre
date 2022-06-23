@@ -17,21 +17,21 @@ public class PalindromeHelper {
             }
         }
         String str = String.join("", words);
-        int n = str.length();
-        if (n < 2)
+        int size = str.length();
+        if (size < 2)
             return;
         int maxLength = 1, start = 0;
         int low, high;
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < size; i++) {
             low = i - 1;
             high = i + 1;
-            while (high < n && str.charAt(high) == str.charAt(i))
+            while (high < size && str.charAt(high) == str.charAt(i))
                 high++;
 
             while (low >= 0 && str.charAt(low) == str.charAt(i))
                 low--;
 
-            while (low >= 0 && high < n && str.charAt(low) == str.charAt(high)) {
+            while (low >= 0 && high < size && str.charAt(low) == str.charAt(high)) {
                 low--;
                 high++;
             }

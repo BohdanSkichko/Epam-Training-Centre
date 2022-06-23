@@ -1,4 +1,4 @@
-package helper.helper;
+package helper.properties;
 
 public enum PropertiesEnum {
     INPUT_FILE("inputFile"),

@@ -1,6 +1,6 @@
 package chapter9.variantb.task1;
 
-import helper.helper.IOHelper;
+import helper.properties.IOHelper;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,11 +8,11 @@ import java.util.Arrays;
 
 
 public class FileHelper {
-    void addRandomNumbersToFile(File file, int numbersQuantity, int rangeNumbers) {
+    void addRandomNumbersToFile(File file, int numbersQuantity, int numbersRange) {
         IOHelper ioHelper = new IOHelper();
         int[] array = new int[numbersQuantity];
         for (int i = 0; i < array.length; i++) {
-            array[i] = (int) Math.round(Math.random() * rangeNumbers);
+            array[i] = (int) Math.round(Math.random() * numbersRange);
             ioHelper.appendWriteToFile(file.getAbsolutePath(), (array[i] + " "));
         }
     }

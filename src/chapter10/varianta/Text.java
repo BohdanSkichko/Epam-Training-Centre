@@ -1,32 +1,36 @@
 package chapter10.varianta;
 
-import helper.helper.IOHelper;
-import helper.helper.PropertiesEnum;
+import helper.properties.IOHelper;
+import helper.properties.PropertiesEnum;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 public class Text {
-    public HashMap<String, Integer> count(File content) {
+    private static final String REMOVE_PUNCTUATION = "[.!?\\-]";
+    private static final String REPLACEMENT_FOR_PUNCTUATION = " ";
+    private static final String WORD_SPLIT = "\\s+";
+
+    private String getText(File file) {
         IOHelper ioHelper = new IOHelper();
-        HashMap<String, Integer> words = new HashMap<>();
-        String withoutPunctuation = ioHelper.readFromFile(content.getAbsolutePath())
-                .replaceAll("[.!?\\-]", " ");
-        StringTokenizer stringTokenizer = new StringTokenizer(withoutPunctuation, " \n");
-        while (stringTokenizer.hasMoreElements()) {
-            String nextToken = stringTokenizer.nextToken();
-            if (!words.containsKey(nextToken)) {
-                words.put(nextToken, 0);
-            }
-            words.put(nextToken, words.get(nextToken) + 1);
-        }
-        return words;
+        return ioHelper.readFromFile(file.getAbsolutePath())
+                .replaceAll(REMOVE_PUNCTUATION, REPLACEMENT_FOR_PUNCTUATION);
+
     }
 
-    public static void main(String[] args) {
-        Text text = new Text();
-        System.out.println(text.count(new File(PropertiesEnum.POEM.getPath())));
+    private String[] getWords(String someText) {
+        return someText.split(WORD_SPLIT);
+    }
+
+    public Map<String, Integer> getCountWords(String[] words) {
+        Map<String, Integer> word = new HashMap<>();
+        for (String uniqueWord : words) {
+            if (!word.containsKey(uniqueWord)) {
+                word.put(uniqueWord, 1);
+            } else word.put(uniqueWord, word.get(uniqueWord) + 1);
+        }
+        return word;
     }
 }

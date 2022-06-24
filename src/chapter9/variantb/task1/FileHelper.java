@@ -1,6 +1,6 @@
 package chapter9.variantb.task1;
 
-import helper.properties.IOHelper;
+import helper.io.IOHelper;
 
 import java.io.File;
 import java.io.IOException;

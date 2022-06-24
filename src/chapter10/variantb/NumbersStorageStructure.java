@@ -28,6 +28,8 @@ public class NumbersStorageStructure {
         newNumbers.add(number);
         List<Integer> index = new ArrayList<>(newNumbers);
         int position = index.indexOf(number);
+        if (position == 0) return new Numbers(index.get(1));
+        if (position == index.size() - 1) return new Numbers(index.size() - 2);
         int numberRight = index.get(position + 1);
         int numberLeft = index.get(position - 1);
         if (numberRight - number == number - numberLeft) {
@@ -39,15 +41,16 @@ public class NumbersStorageStructure {
     }
 
     public int find(int number) {
+        if (numbers.contains(number)) return number;
         Iterator<Integer> iterator = numbers.iterator();
-        int min = iterator.next();
+        int minNUmber = iterator.next();
         while (iterator.hasNext()) {
-            int elem = iterator.next();
-            if (Math.abs(elem - number) < Math.abs(min - number)) {
-                min = elem;
+            int nextNumber = iterator.next();
+            if (Math.abs(nextNumber - number) < Math.abs(minNUmber - number)) {
+                minNUmber = nextNumber;
             }
         }
-        return min;
+        return minNUmber;
     }
 
     static class Numbers {
@@ -76,10 +79,10 @@ public class NumbersStorageStructure {
 
     public static void main(String[] args) {
         NumbersStorageStructure numbersStorageStructure = new NumbersStorageStructure();
-        numbersStorageStructure.addAll(RandomNumberGenerator.getNumbers(10, 200));
+        numbersStorageStructure.addAll(RandomNumberGenerator.getNumbers(20301, Integer.MAX_VALUE/4));
         System.out.println(numbersStorageStructure.numbers);
-        System.out.println(numbersStorageStructure.find(10));
-        System.out.println(numbersStorageStructure.numbers);
+        System.out.println(numbersStorageStructure.findNumber(2411));
+
 
 
     }

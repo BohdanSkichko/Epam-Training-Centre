@@ -1,12 +1,10 @@
 package chapter10.varianta;
 
-import helper.properties.IOHelper;
-import helper.properties.PropertiesEnum;
+import helper.io.IOHelper;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 public class Text {
     private static final String REMOVE_PUNCTUATION = "[.!?\\-]";
@@ -24,7 +22,7 @@ public class Text {
         return someText.split(WORD_SPLIT);
     }
 
-    public Map<String, Integer> getCountWords(String[] words) {
+    public Map<String, Integer> getWordsCount(String[] words) {
         Map<String, Integer> word = new HashMap<>();
         for (String uniqueWord : words) {
             if (!word.containsKey(uniqueWord)) {

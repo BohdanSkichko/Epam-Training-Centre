@@ -1,4 +1,4 @@
-package helper.barcketenum;
+package chapter10.varianta.barcketenum;
 
 public enum BracketEnum {
     OPEN_SQUARE('['),

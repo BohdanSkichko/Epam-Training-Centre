@@ -1,5 +1,5 @@
 package chapter9.varianta.textreditor;
-import helper.properties.IOHelper;
+import helper.io.IOHelper;
 import helper.properties.PropertiesEnum;
 
 public class SubstringDeleter {

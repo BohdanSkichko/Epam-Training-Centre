@@ -1,6 +1,6 @@
 package chapter10.varianta;
 
-import helper.barcketenum.BracketEnum;
+import chapter10.varianta.barcketenum.BracketEnum;
 
 import java.util.ArrayDeque;
 import java.util.Deque;

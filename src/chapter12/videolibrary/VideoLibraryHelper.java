@@ -1,2 +1,75 @@
-package chapter12.videolibrary;public class VideoLibraryHelper {
+package chapter12.videolibrary;
+
+import chapter12.ConnectorDB;
+
+import java.sql.*;
+
+public class VideoLibraryHelper {
+    private final static String SQL_INSERT_ACTOR =
+            "INSERT INTO actor(name, surname, birthday) VALUES(?,?,?)";
+    private final static String SQL_INSERT_FILM =
+            "INSERT INTO film(name, array, releaseDate, country) VALUES(?,?,?,?)";
+    private final Connection connect;
+
+    public VideoLibraryHelper() throws SQLException {
+        connect = ConnectorDB.getConnection();
+    }
+
+    public PreparedStatement getPreparedStatementActor() {
+        PreparedStatement ps = null;
+        try {
+            ps = connect.prepareStatement(SQL_INSERT_ACTOR);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ps;
+    }
+
+    public PreparedStatement getPreparedStatementFilm() {
+        PreparedStatement ps = null;
+        try {
+            ps = connect.prepareStatement(SQL_INSERT_FILM);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ps;
+    }
+
+    public boolean insertActor(PreparedStatement ps, Actor actor) {
+        boolean flag = false;
+        try {
+            ps.setString(1, actor.getName());
+            ps.setString(2, actor.getSurname());
+            ps.setDate(3, actor.getBirthday());
+            ps.executeUpdate();
+            flag = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+    public boolean insertFilm(PreparedStatement ps, Film film) {
+        boolean flag = false;
+        try {
+            ps.setString(1, film.getName());
+            ps.setArray(2, (Array) film.getActors());
+            ps.setDate(3, film.getReleaseDate());
+            ps.setString(4, film.getCountry());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+    public void closeStatement(PreparedStatement ps) {
+        if (ps != null) {
+            try {
+                ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
+

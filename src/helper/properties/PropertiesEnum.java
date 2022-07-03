@@ -6,6 +6,7 @@ public enum PropertiesEnum {
     POEM ("poem"),
     EMPTY ("empty"),
     DIRECTORY ("directory"),
+
     ;
 
 

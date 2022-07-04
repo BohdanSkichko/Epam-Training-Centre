@@ -1,8 +1,11 @@
 package chapter12.videolibrary;
 
 import chapter12.ConnectorDB;
+import chapter12.videolibrary.models.Actor;
+import chapter12.videolibrary.models.Movie;
 
 import java.sql.*;
+
 
 public class VideoLibraryHelper {
     private final static String SQL_INSERT_ACTOR =
@@ -40,7 +43,7 @@ public class VideoLibraryHelper {
         try {
             ps.setString(1, actor.getName());
             ps.setString(2, actor.getSurname());
-            ps.setDate(3, actor.getBirthday());
+            ps.setDate(3, Date.valueOf(actor.getBirthday()));
             ps.executeUpdate();
             flag = true;
         } catch (SQLException e) {
@@ -49,13 +52,13 @@ public class VideoLibraryHelper {
         return flag;
     }
 
-    public boolean insertFilm(PreparedStatement ps, Film film) {
+    public boolean insertFilm(PreparedStatement ps, Movie movie) {
         boolean flag = false;
         try {
-            ps.setString(1, film.getName());
-            ps.setArray(2, (Array) film.getActors());
-            ps.setDate(3, film.getReleaseDate());
-            ps.setString(4, film.getCountry());
+            ps.setString(1, movie.getName());
+//            ps.setArray(2, (Array) film.getActors());
+            ps.setDate(3, Date.valueOf(movie.getReleaseDate()));
+            ps.setString(4, movie.getCountry());
         } catch (SQLException e) {
             e.printStackTrace();
         }

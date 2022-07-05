@@ -10,12 +10,26 @@ public class Actor extends Entity {
     private LocalDate birthday;
     private Movie movie;
 
+    public Actor(String name, String surname, LocalDate birthday, Movie movie) {
+        this.name = name;
+        this.surname = surname;
+        this.birthday = birthday;
+        this.movie = movie;
+    }
+
+    public Actor(int id, String name, String surname, LocalDate birthday, Movie movie) {
+        super(id);
+        this.name = name;
+        this.surname = surname;
+        this.birthday = birthday;
+        this.movie = movie;
+    }
+
     public Actor() {
 
     }
 
-    public Actor( String name, String surname, LocalDate birthday) {
-
+    public Actor(String name, String surname, LocalDate birthday) {
         this.name = name;
         this.surname = surname;
         this.birthday = birthday;

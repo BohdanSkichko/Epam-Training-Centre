@@ -1,6 +1,6 @@
-package chapter12.videolibrary;
+package chapter12.videolibrary.initializer;
 
-import chapter12.ConnectorDB;
+import chapter12.DBConnector;
 
 import java.io.Closeable;
 import java.sql.Connection;
@@ -13,7 +13,7 @@ public class BaseTable implements Closeable {
 
     BaseTable(String tableName) {
         this.tableName = tableName;
-        this.connection = ConnectorDB.getConnection();
+        this.connection = DBConnector.getConnection();
     }
 
     public void close() {
@@ -40,7 +40,7 @@ public class BaseTable implements Closeable {
 
     void reopenConnection() throws SQLException {
         if (connection == null || connection.isClosed()) {
-            connection = ConnectorDB.getConnection();
+            connection = DBConnector.getConnection();
         }
     }
 }

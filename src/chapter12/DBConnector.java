@@ -5,7 +5,7 @@ import helper.properties.PropertiesDBEnum;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-public class ConnectorDB {
+public class DBConnector {
     private static final String BASE_NAME = "database";
     public static Connection getConnection() {
         try {

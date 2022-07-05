@@ -1,6 +1,6 @@
-package chapter12.videolibrary;
+package chapter12.videolibrary.initializer;
 
-import chapter12.ConnectorDB;
+import chapter12.DBConnector;
 import chapter12.videolibrary.models.Actor;
 import chapter12.videolibrary.models.Movie;
 
@@ -15,7 +15,7 @@ public class VideoLibraryHelper {
     private final Connection connect;
 
     public VideoLibraryHelper() throws SQLException {
-        connect = ConnectorDB.getConnection();
+        connect = DBConnector.getConnection();
     }
 
     public PreparedStatement getPreparedStatementActor() {
@@ -58,7 +58,7 @@ public class VideoLibraryHelper {
             ps.setString(1, movie.getName());
 //            ps.setArray(2, (Array) film.getActors());
             ps.setDate(3, Date.valueOf(movie.getReleaseDate()));
-            ps.setString(4, movie.getCountry());
+//            ps.setString(4, movie.getCountry());
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -1,4 +1,4 @@
-package chapter12.videolibrary;
+package chapter12.videolibrary.initializer;
 
 import java.sql.SQLException;
 

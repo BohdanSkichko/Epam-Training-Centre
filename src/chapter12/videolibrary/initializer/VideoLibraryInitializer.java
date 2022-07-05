@@ -1,18 +1,15 @@
-package chapter12;
+package chapter12.videolibrary.initializer;
 
-import chapter12.videolibrary.*;
-
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
-public class VideoLibrary {
+public class VideoLibraryInitializer {
     Actors actors;
     Directors directors;
     Movies movies;
     MoviesActors moviesActors;
     MoviesDirectors moviesDirectors;
 
-    public VideoLibrary() throws SQLException, ClassNotFoundException {
+    public VideoLibraryInitializer() throws SQLException, ClassNotFoundException {
         actors = new Actors();
         directors = new Directors();
         movies = new Movies();

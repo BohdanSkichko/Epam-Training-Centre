@@ -65,7 +65,7 @@ public class Park {
 
         enum Type {
             HYDRODROME("Hydrodrome"),
-            PNEUMATIC_TRAMPLINE("TRAMP_line"),
+            PNEUMATIC_TRAMPOLINE("Trampoline"),
             INFLATUBLE_SLIDES("Slides"),
             GAME_MAZES("Game"),
             ;

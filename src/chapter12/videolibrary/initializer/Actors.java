@@ -2,11 +2,12 @@ package chapter12.videolibrary.initializer;
 
 import java.sql.SQLException;
 
-public class Actors extends BaseTable implements TableOperations {
+public class Actors extends BaseTableCreator implements TableOperations {
 
     private final static String SQL_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS actors (Id serial primary key," +
-            "Name VARCHAR(50) NOT NULL, " +
-            "Surname VARCHAR(50) NOT NULL, Birthday DATE NOT NULL)";
+            "name VARCHAR(50) NOT NULL, " +
+            "surname VARCHAR(50) NOT NULL, birthday DATE NOT NULL)";
+    private final static String UNIQUE_KEY = "create unique index unique_key_idx on actors (name, surname, birthday)";
 
     public Actors() {
         super("actors");
@@ -14,12 +15,17 @@ public class Actors extends BaseTable implements TableOperations {
 
     @Override
     public void createTable() throws SQLException {
-        super.executeSqlStatement(SQL_CREATE_TABLE + tableName);
+        super.executeSqlStatement(SQL_CREATE_TABLE, "table created " + tableName);
 
     }
 
     @Override
     public void createForeignKeys() throws SQLException {
 
+    }
+
+    @Override
+    public void createUniqueIndex() throws SQLException {
+        super.executeSqlStatement(UNIQUE_KEY);
     }
 }

@@ -15,7 +15,7 @@ public class Runner {
         Park.Attraction attraction2 = new Park.Attraction(250.00, "14.00 - 23.00",
                 Park.Attraction.Type.INFLATUBLE_SLIDES);
         Park.Attraction attraction3 = new Park.Attraction(250.00, "14.00 - 23.00",
-                Park.Attraction.Type.PNEUMATIC_TRAMPLINE);
+                Park.Attraction.Type.PNEUMATIC_TRAMPOLINE);
 
         park.addAttraction(attraction);
         park.addAttraction(attraction1);

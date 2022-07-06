@@ -6,58 +6,48 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Movie extends Entity {
-    private String name;
-
-    public List<Country> getCountry() {
-        return country;
-    }
-
-    public void setCountry(List<Country> country) {
-        this.country = country;
-    }
-
+    private String title;
     private LocalDate releaseDate;
-    private List<Country> country;
-    private List<Actor> actors;
+    private List<Country> countries = new ArrayList<>();
+    private List<Actor> actors = new ArrayList<>();
+    private List<Director> directors = new ArrayList<>();
 
     public Movie() {
 
     }
 
-    public Movie(int id, String name, LocalDate releaseDate) {
-        super(id);
-        this.name = name;
+    public Movie(String title, LocalDate releaseDate, List<Country> countries, List<Actor> actors, List<Director> directors) {
+        this.title = title;
         this.releaseDate = releaseDate;
-        country = new ArrayList<>();
-        actors = new ArrayList<>();
-
-    }
-
-    public Movie(String name, LocalDate releaseDate) {
-        this.name = name;
-        this.releaseDate = releaseDate;
-        country = new ArrayList<>();
-        actors = new ArrayList<>();
-
-    }
-
-    public Movie(String name, LocalDate releaseDate, List<Country> country, List<Actor> actors) {
-        this.name = name;
-        this.releaseDate = releaseDate;
-        this.country = country;
+        this.countries = countries;
         this.actors = actors;
+        this.directors = directors;
     }
 
-    public Movie(int id, String name, LocalDate releaseDate, List<Country> country, List<Actor> actors) {
+    public Movie(int id, String title, LocalDate releaseDate, List<Country> country, List<Actor> actors, List<Director> directors) {
         super(id);
-        this.name = name;
+        this.title = title;
         this.releaseDate = releaseDate;
-        this.country = country;
+        this.countries = country;
         this.actors = actors;
+        this.directors = directors;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Movie(String title, LocalDate releaseDate) {
+        this.title = title;
+        this.releaseDate = releaseDate;
+    }
+
+    public List<Director> getDirectors() {
+        return directors;
+    }
+
+    public void setDirectors(List<Director> directors) {
+        this.directors = directors;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public void setReleaseDate(LocalDate releaseDate) {
@@ -66,16 +56,34 @@ public class Movie extends Entity {
 
 
     public void addActor(Actor actor) {
-        actor.setFilm(this);
+        actor.setMovie(this);
         actors.add(actor);
+    }
+
+    public void addCountry(Country country) {
+        country.setMovie(this);
+        countries.add(country);
+    }
+
+    public void addDirector(Director director) {
+        director.setMovie(this);
+        directors.add(director);
+    }
+
+    public List<Country> getCountry() {
+        return countries;
+    }
+
+    public void setCountry(List<Country> country) {
+        this.countries = country;
     }
 
     public void setActors(List<Actor> actors) {
         this.actors = actors;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
     public List<Actor> getActors() {
@@ -90,10 +98,10 @@ public class Movie extends Entity {
     @Override
     public String toString() {
         return "Film{" +
-                "name='" + name + '\'' +
+                "name='" + title + '\'' +
                 ", actors=" + actors +
                 ", releaseDate=" + releaseDate +
-                ", country='" + country + '\'' +
+                ", country='" + countries + '\'' +
                 '}';
     }
 

@@ -5,26 +5,35 @@ import java.sql.SQLException;
 public class VideoLibraryInitializer {
     Actors actors;
     Directors directors;
+    Countries countries;
+    CountryMovieLink countryMovieLink;
     Movies movies;
-    MoviesActors moviesActors;
-    MoviesDirectors moviesDirectors;
+    MovieActors movieActors;
+    MovieDirection movieDirection;
 
     public VideoLibraryInitializer() throws SQLException, ClassNotFoundException {
         actors = new Actors();
         directors = new Directors();
         movies = new Movies();
-        moviesActors = new MoviesActors();
-        moviesDirectors = new MoviesDirectors();
+        countries = new Countries();
+        countryMovieLink = new CountryMovieLink();
+        movieActors = new MovieActors();
+        movieDirection = new MovieDirection();
     }
 
-public void createTablesAndForeignKeys() throws SQLException {
-    actors.createTable();
-    movies.createTable();
-    moviesActors.createTable();
-    directors.createTable();
-    moviesDirectors.createTable();
+    public void createTablesAndForeignKeys() throws SQLException {
+        actors.createTable();
+        movies.createTable();
+        movieActors.createTable();
+        directors.createTable();
+        movieDirection.createTable();
+        countries.createTable();
+        countryMovieLink.createTable();
 
-    moviesActors.createForeignKeys();
-    moviesDirectors.createForeignKeys();
-}
+        actors.createUniqueIndex();
+
+        countryMovieLink.createForeignKeys();
+        movieActors.createForeignKeys();
+        movieDirection.createForeignKeys();
+    }
 }

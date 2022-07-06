@@ -2,13 +2,13 @@ package chapter12.videolibrary.initializer;
 
 import java.sql.SQLException;
 
-public class Movies extends BaseTableCreator implements TableOperations {
-    private final static String SQL_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS movies (Id serial primary key," +
-            "title VARCHAR(50) NOT NULL, release_data DATE NOT NULL)";
-    private final static String SQL_UNIQUE_KEY = "create unique index unique_key_idx on movies (title, release_data)";
+public class Countries extends BaseTableCreator implements TableOperations {
+    private final static String SQL_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS countries" +
+            "(Id serial primary key, name VARCHAR NOT NULL)";
+    private final static String SQL_UNIQUE_KEY = "create unique index unique_key_idx on countries (name)";
 
-    public Movies() {
-        super("movies");
+    public Countries() {
+        super("countries");
     }
 
     @Override
@@ -25,5 +25,4 @@ public class Movies extends BaseTableCreator implements TableOperations {
     public void createUniqueIndex() throws SQLException {
         super.executeSqlStatement(SQL_UNIQUE_KEY);
     }
-
 }

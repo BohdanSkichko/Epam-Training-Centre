@@ -23,6 +23,12 @@ public class Director extends Entity {
         this.movie = movie;
     }
 
+    public Director(String name, String surname, LocalDate birthday) {
+        this.name = name;
+        this.surname = surname;
+        this.birthday = birthday;
+    }
+
     public Movie getMovie() {
         return movie;
     }

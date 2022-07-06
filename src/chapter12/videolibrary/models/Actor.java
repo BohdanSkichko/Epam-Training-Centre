@@ -35,7 +35,7 @@ public class Actor extends Entity {
         this.birthday = birthday;
     }
 
-    public void setFilm(Movie movie) {
+    public void setMovie(Movie movie) {
         this.movie = movie;
     }
 

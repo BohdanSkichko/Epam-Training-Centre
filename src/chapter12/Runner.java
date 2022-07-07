@@ -1,7 +1,6 @@
 package chapter12;
 
-import chapter12.videolibrary.initializer.VideoLibraryHelper;
-import chapter12.videolibrary.initializer.VideoLibraryInitializer;
+import chapter12.videolibrary.tableresource.VideoLibraryHelper;
 import chapter12.videolibrary.models.Actor;
 import chapter12.videolibrary.models.Country;
 import chapter12.videolibrary.models.Director;

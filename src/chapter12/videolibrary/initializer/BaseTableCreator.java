@@ -3,7 +3,6 @@ package chapter12.videolibrary.initializer;
 import chapter12.DBConnector;
 
 import java.io.Closeable;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,7 +12,7 @@ public class BaseTableCreator implements Closeable {
     Connection connection;
     String tableName;
 
-    BaseTableCreator(String tableName) {
+   public BaseTableCreator(String tableName) {
         this.tableName = tableName;
         this.connection = DBConnector.getConnection();
     }
@@ -27,7 +26,7 @@ public class BaseTableCreator implements Closeable {
         }
     }
 
-    void executeSqlStatement(String sql, String description) throws SQLException {
+    protected void executeSqlStatement(String sql, String description) throws SQLException {
         Statement statement = connection.createStatement();
         statement.execute(sql);
         statement.close();
@@ -44,7 +43,7 @@ public class BaseTableCreator implements Closeable {
             System.out.println(description);
     }
 
-    void executeSqlStatement(String sql) throws SQLException {
+    protected void executeSqlStatement(String sql) throws SQLException {
         executeSqlStatement(sql, null);
     }
 

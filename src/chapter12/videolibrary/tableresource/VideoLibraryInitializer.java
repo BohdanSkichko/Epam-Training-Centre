@@ -1,4 +1,6 @@
-package chapter12.videolibrary.initializer;
+package chapter12.videolibrary.tableresource;
+
+import chapter12.videolibrary.initializer.*;
 
 import java.sql.SQLException;
 
@@ -31,6 +33,9 @@ public class VideoLibraryInitializer {
         countryMovieLink.createTable();
 
         actors.createUniqueIndex();
+        countries.createUniqueIndex();
+        movies.createUniqueIndex();
+        directors.createUniqueIndex();
 
         countryMovieLink.createForeignKeys();
         movieActors.createForeignKeys();

@@ -1,5 +1,7 @@
 package chapter12.videolibrary.initializer;
 
+import chapter12.videolibrary.tableresource.TableOperations;
+
 import java.sql.SQLException;
 
 public class MovieDirection extends BaseTableCreator implements TableOperations {

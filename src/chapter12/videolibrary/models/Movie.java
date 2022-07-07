@@ -1,13 +1,14 @@
 package chapter12.videolibrary.models;
 
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Movie extends Entity {
     private String title;
-    private LocalDate releaseDate;
+    private Date releaseDate;
     private List<Country> countries = new ArrayList<>();
     private List<Actor> actors = new ArrayList<>();
     private List<Director> directors = new ArrayList<>();
@@ -18,7 +19,7 @@ public class Movie extends Entity {
 
     public Movie(String title, LocalDate releaseDate, List<Country> countries, List<Actor> actors, List<Director> directors) {
         this.title = title;
-        this.releaseDate = releaseDate;
+        this.releaseDate = Date.valueOf(releaseDate);
         this.countries = countries;
         this.actors = actors;
         this.directors = directors;
@@ -27,7 +28,7 @@ public class Movie extends Entity {
     public Movie(int id, String title, LocalDate releaseDate, List<Country> country, List<Actor> actors, List<Director> directors) {
         super(id);
         this.title = title;
-        this.releaseDate = releaseDate;
+        this.releaseDate = Date.valueOf(releaseDate);
         this.countries = country;
         this.actors = actors;
         this.directors = directors;
@@ -35,7 +36,7 @@ public class Movie extends Entity {
 
     public Movie(String title, LocalDate releaseDate) {
         this.title = title;
-        this.releaseDate = releaseDate;
+        this.releaseDate = Date.valueOf(releaseDate);
     }
 
     public List<Director> getDirectors() {
@@ -50,7 +51,7 @@ public class Movie extends Entity {
         this.title = title;
     }
 
-    public void setReleaseDate(LocalDate releaseDate) {
+    public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
     }
 
@@ -90,8 +91,8 @@ public class Movie extends Entity {
         return actors;
     }
 
-    public LocalDate getReleaseDate() {
-        return releaseDate;
+    public String getReleaseDate() {
+        return String.valueOf(releaseDate);
     }
 
 

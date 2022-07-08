@@ -1,6 +1,8 @@
 package chapter12.videolibrary.models;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Actor extends Entity {
@@ -8,16 +10,16 @@ public class Actor extends Entity {
     private String name;
     private String surname;
     private LocalDate birthday;
-    private Movie movie;
+    private List<Movie> movie = new ArrayList<>();
 
-    public Actor(String name, String surname, LocalDate birthday, Movie movie) {
+    public Actor(String name, String surname, LocalDate birthday, List<Movie> movie) {
         this.name = name;
         this.surname = surname;
         this.birthday = birthday;
         this.movie = movie;
     }
 
-    public Actor(int id, String name, String surname, LocalDate birthday, Movie movie) {
+    public Actor(int id, String name, String surname, LocalDate birthday, List<Movie> movie) {
         super(id);
         this.name = name;
         this.surname = surname;
@@ -35,17 +37,19 @@ public class Actor extends Entity {
         this.birthday = birthday;
     }
 
-    public void setMovie(Movie movie) {
-        this.movie = movie;
-    }
+
 
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public Movie getFilm() {
+    public List<Movie> getMovie() {
         return movie;
+    }
+
+    public void setMovie(List<Movie> movie) {
+        this.movie = movie;
     }
 
     public void setSurname(String surname) {

@@ -1,20 +1,19 @@
 package chapter12;
 
-import chapter12.videolibrary.tableresource.VideoLibraryHelper;
+import chapter12.videolibrary.DAO.MovieDao;
 import chapter12.videolibrary.models.Actor;
 import chapter12.videolibrary.models.Country;
 import chapter12.videolibrary.models.Director;
 import chapter12.videolibrary.models.Movie;
+import chapter12.videolibrary.tableresource.VideoLibraryInitializer;
 
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Runner {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
 //        try {
 //            VideoLibraryInitializer videoLibraryInitializer = new VideoLibraryInitializer();
@@ -52,34 +51,41 @@ public class Runner {
         movies.add(new Movie("The Shawshank Redemption", LocalDate.of(1994, Month.SEPTEMBER, 22)));
         movies.add(new Movie("One Flew Over the Cuckoo's Nest", LocalDate.of(1975, Month.NOVEMBER, 19)));
 
+        List<Movie> movies1 = new ArrayList<>();
+        Movie movie = new Movie("movie", LocalDate.of(2000, 1, 1), countries, actors, directors);
+        movies1.add(new Movie("1", LocalDate.of(2000, 1, 1), countries, actors, directors));
+        MovieDao movieDao = new MovieDao();
+//        movieDao.insert(movie);
+//        movieDao.findMoviesBetweenYears(new Date(190, Calendar.MARCH,11),new Date(212, Calendar.FEBRUARY,12));
+        System.out.println(movieDao.findMoviesBetweenYears(LocalDate.of(1990, 1,11),LocalDate.of(2011, 1,12)));
 
-        VideoLibraryHelper helper = null;
-        PreparedStatement statement = null;
-        try {
-            helper = new VideoLibraryHelper();
-            statement = helper.getPreparedStatementActor();
-            for (Actor act : actors) {
-                helper.insertActor(statement, act);
-            }
-            statement = helper.getPreparedStatementFilm();
-            for (Movie mov : movies) {
-                helper.insertMovie(statement, mov);
-            }
-            statement = helper.getPreparedStatementDirector();
-            for (Director director : directors) {
-                helper.insertDirector(statement, director);
-            }
-            statement = helper.getPreparedStatementCountry();
-            for (Country country : countries) {
-                helper.insertCountry(statement, country);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            assert helper != null;
-            helper.closeStatement(statement);
-        }
+//        VideoLibraryHelper helper = null;
+//        PreparedStatement statement = null;
+//        try (Connection connection = DBConnector.getConnection()) {
+//            helper = new VideoLibraryHelper();
+//            statement = helper.getPreparedStatementActor();
+//            for (Actor act : actors) {
+//                helper.insertActor(statement, act);
+//            }
+//            statement = helper.getPreparedStatementFilm();
+//            for (Movie mov : movies) {
+//                helper.insertMovie(statement, mov);
+//            }
+//            statement = helper.getPreparedStatementDirector();
+//            for (Director director : directors) {
+//                helper.insertDirector(statement, director);
+//            }
+//            statement = helper.getPreparedStatementCountry();
+//            for (Country country : countries) {
+//                helper.insertCountry(statement, country);
+//            }
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } finally {
+//            assert helper != null;
+//            helper.closeStatement(statement);
+//        }
 
     }
 

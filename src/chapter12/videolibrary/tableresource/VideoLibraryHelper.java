@@ -1,6 +1,6 @@
 package chapter12.videolibrary.tableresource;
 
-import chapter12.DBConnector;
+import chapter12.videolibrary.DAO.DBConnector;
 import chapter12.videolibrary.models.Actor;
 import chapter12.videolibrary.models.Country;
 import chapter12.videolibrary.models.Director;

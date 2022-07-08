@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 public class Movie extends Entity {
     private String title;
@@ -57,17 +59,14 @@ public class Movie extends Entity {
 
 
     public void addActor(Actor actor) {
-        actor.setMovie(this);
         actors.add(actor);
     }
 
     public void addCountry(Country country) {
-        country.setMovie(this);
         countries.add(country);
     }
 
     public void addDirector(Director director) {
-        director.setMovie(this);
         directors.add(director);
     }
 
@@ -102,8 +101,6 @@ public class Movie extends Entity {
                 "name='" + title + '\'' +
                 ", actors=" + actors +
                 ", releaseDate=" + releaseDate +
-                ", country='" + countries + '\'' +
-                '}';
+                ", country='" + countries.stream().map(Country::toString).collect(Collectors.joining(" "));
     }
-
 }

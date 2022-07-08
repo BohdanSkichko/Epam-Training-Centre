@@ -1,6 +1,6 @@
 package chapter12.videolibrary.initializer;
 
-import chapter12.DBConnector;
+import chapter12.videolibrary.DAO.DBConnector;
 
 import java.io.Closeable;
 import java.sql.Connection;

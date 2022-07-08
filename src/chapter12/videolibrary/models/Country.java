@@ -1,10 +1,11 @@
 package chapter12.videolibrary.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Country extends Entity{
+public class Country extends Entity {
     private String name;
-    private Movie movie;
+    private List<Movie> movies = new ArrayList<>();
 
 
     public Country(String name) {
@@ -16,26 +17,36 @@ public class Country extends Entity{
         this.name = name;
     }
 
-    public Country(String name, Movie movie) {
-        this.name = name;
-        this.movie = movie;
+    public List<Movie> getMovies() {
+        return movies;
     }
 
-    public Country(int id, String name, Movie movie) {
+    public void setMovies(List<Movie> movies) {
+        this.movies = movies;
+    }
+
+    public Country(String name, List<Movie> movies) {
+        this.name = name;
+        this.movies = movies;
+    }
+
+    public Country(int id, String name, List<Movie> movies) {
         super(id);
         this.name = name;
-        this.movie = movie;
-    }
-    public Movie getMovie() {
-        return movie;
-    }
-
-    public void setMovie(Movie movie) {
-        this.movie = movie;
+        this.movies = movies;
     }
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String toString() {
+        return "Country{" +
+                "name='" + name + '\'' +
+                ", movies=" + movies +
+                ", id=" + id +
+                '}';
     }
 
     public void setName(String name) {

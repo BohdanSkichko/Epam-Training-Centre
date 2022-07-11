@@ -13,11 +13,14 @@ public abstract class DAO<T extends Entity> {
 
     public abstract T findEntityById(int id);
 
-    public abstract boolean delete(int id);
+    public abstract boolean delete(int id) throws SQLException;
 
     public abstract boolean delete(T entity);
 
-    public abstract boolean insert(T entity) throws SQLException;
+    public abstract void insert(T entity) throws SQLException;
+
+    private final static String SQL_CHECK_ACTOR_ID = "SELECT id FROM actors " +
+            "WHERE name = ? and surname = ? and birthday = ?";
 
     public abstract T update(T entity);
 

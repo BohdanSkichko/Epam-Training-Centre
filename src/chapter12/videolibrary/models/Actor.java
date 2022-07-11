@@ -1,5 +1,6 @@
 package chapter12.videolibrary.models;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,13 +10,13 @@ public class Actor extends Entity {
 
     private String name;
     private String surname;
-    private LocalDate birthday;
+    private Date birthday;
     private List<Movie> movie = new ArrayList<>();
 
     public Actor(String name, String surname, LocalDate birthday, List<Movie> movie) {
         this.name = name;
         this.surname = surname;
-        this.birthday = birthday;
+        this.birthday = Date.valueOf(birthday);
         this.movie = movie;
     }
 
@@ -23,7 +24,7 @@ public class Actor extends Entity {
         super(id);
         this.name = name;
         this.surname = surname;
-        this.birthday = birthday;
+        this.birthday = Date.valueOf(birthday);
         this.movie = movie;
     }
 
@@ -34,10 +35,8 @@ public class Actor extends Entity {
     public Actor(String name, String surname, LocalDate birthday) {
         this.name = name;
         this.surname = surname;
-        this.birthday = birthday;
+        this.birthday = Date.valueOf(birthday);
     }
-
-
 
 
     public void setName(String name) {
@@ -56,7 +55,7 @@ public class Actor extends Entity {
         this.surname = surname;
     }
 
-    public void setBirthday(LocalDate birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
@@ -69,13 +68,13 @@ public class Actor extends Entity {
         return surname;
     }
 
-    public LocalDate getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
     @Override
     public String toString() {
-        return "Actor" +
+        return
                 name + " " + surname + " " + birthday;
     }
 

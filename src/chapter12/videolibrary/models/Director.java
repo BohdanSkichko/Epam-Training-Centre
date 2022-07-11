@@ -1,27 +1,29 @@
 package chapter12.videolibrary.models;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
 import java.util.List;
 
 public class Director extends Entity {
     private String name;
     private String surname;
-    private LocalDate birthday;
+    private Date birthday;
     private List<Movie> movies = new ArrayList<>();
 
     public Director(int id, String name, String surname, LocalDate birthday, List<Movie> movies) {
         super(id);
         this.name = name;
         this.surname = surname;
-        this.birthday = birthday;
+        this.birthday = java.sql.Date.valueOf(birthday);
         this.movies = movies;
     }
 
     public Director(String name, String surname, LocalDate birthday) {
         this.name = name;
         this.surname = surname;
-        this.birthday = birthday;
+        this.birthday = Date.valueOf(birthday);
     }
 
 
@@ -44,7 +46,7 @@ public class Director extends Entity {
         this.surname = surname;
     }
 
-    public void setBirthday(LocalDate birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
@@ -56,7 +58,7 @@ public class Director extends Entity {
         return surname;
     }
 
-    public LocalDate getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 

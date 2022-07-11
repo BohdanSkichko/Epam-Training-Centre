@@ -11,6 +11,15 @@ import java.util.stream.Collectors;
 public class Movie extends Entity {
     private String title;
     private Date releaseDate;
+
+    public List<Country> getCountries() {
+        return countries;
+    }
+
+    public void setCountries(List<Country> countries) {
+        this.countries = countries;
+    }
+
     private List<Country> countries = new ArrayList<>();
     private List<Actor> actors = new ArrayList<>();
     private List<Director> directors = new ArrayList<>();
@@ -97,7 +106,7 @@ public class Movie extends Entity {
 
     @Override
     public String toString() {
-        return "Film{" +
+        return "Movie{" +
                 "name='" + title + '\'' +
                 ", actors=" + actors +
                 ", releaseDate=" + releaseDate +

@@ -78,7 +78,7 @@ public class VideoLibraryHelper {
         try {
             ps.setString(1, actor.getName());
             ps.setString(2, actor.getSurname());
-            ps.setDate(3, Date.valueOf(actor.getBirthday()));
+            ps.setDate(3, actor.getBirthday());
             ps.executeUpdate();
             flag = true;
         } catch (SQLException e) {
@@ -104,7 +104,7 @@ public class VideoLibraryHelper {
         try {
             ps.setString(1, director.getName());
             ps.setString(2, director.getSurname());
-            ps.setDate(3, Date.valueOf(director.getBirthday()));
+            ps.setDate(3, director.getBirthday());
             ps.executeUpdate();
             flag = true;
         } catch (SQLException e) {

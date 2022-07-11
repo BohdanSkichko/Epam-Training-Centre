@@ -64,11 +64,10 @@ public class Director extends Entity {
 
     @Override
     public String toString() {
-        return "Director{" +
-                "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", birthday=" + birthday +
-                '}';
+        return
+                 name + " " +
+                surname + " " +
+                birthday;
     }
 
 }

@@ -15,7 +15,7 @@ public class ActorDAO extends DAO<Actor> {
             "JOIN movie_actors ma ON a.id = ma.actor_id GROUP BY a.id HAVING count(movie_id) > ";
     private final static String SQL_INSERT_ACTOR = "INSERT INTO actors(name, surname, birthday) VALUES(?,?,?)";
     private final static String SQL_CHECK_ACTOR_ID = "SELECT id FROM actors WHERE name = ? and surname = ? and birthday = ?";
-    private final static String SQL_GET_DIRECTORS = " SELECT * from actors a " +
+    private final static String SQL_GET_DIRECTORS = " SELECT a.name, a.surname, a.birthday FROM actors a " +
             "JOIN directors d ON d.name = a.name and d.surname = a.surname and d.birthday = a.birthday";
 
     @Override
@@ -38,6 +38,7 @@ public class ActorDAO extends DAO<Actor> {
                 actors.add(actor);
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             System.err.println("SQL exception (request or table failed): " + e);
         }
         return actors;
@@ -53,9 +54,10 @@ public class ActorDAO extends DAO<Actor> {
              rs) {
             while (rs.next()) {
                 Director director = new Director();
-                director.setName(rs.getString("name"));
-                director.setSurname(rs.getString("surname"));
-                director.setBirthday(rs.getDate("birthday"));
+                director.setName(rs.getString(1));
+                director.setSurname(rs.getString(2));
+                director.setBirthday(rs.getDate(3));
+                directors.add(director);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -80,6 +82,7 @@ public class ActorDAO extends DAO<Actor> {
             }
 
         } catch (SQLException e) {
+            e.printStackTrace();
             System.err.println("SQL exception (request or table failed): " + e);
         }
         return actors;

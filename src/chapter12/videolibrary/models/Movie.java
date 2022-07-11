@@ -106,10 +106,10 @@ public class Movie extends Entity {
 
     @Override
     public String toString() {
-        return "Movie{" +
-                "name='" + title + '\'' +
-                ", actors=" + actors +
-                ", releaseDate=" + releaseDate +
-                ", country='" + countries.stream().map(Country::toString).collect(Collectors.joining(" "));
+        return
+                 title + " "+
+                " " + actors +
+                " " + releaseDate +
+                " " + countries.stream().map(Country::toString).collect(Collectors.joining(" "));
     }
 }

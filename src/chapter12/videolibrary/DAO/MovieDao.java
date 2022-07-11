@@ -10,11 +10,15 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
+/*SELECT * FROM movies m
+RIGHT JOIN movie_direction md ON md.movie_id = m.id
+LEFT JOIN movie_actors ma ON ma.movie_id = m.id
+JOIN country_movie_link cml ON cml.movie_id = m.id
+where release_date between '2000-1-1' and '2012-12-12'*/
 public class MovieDao extends DAO<Movie> {
-    ActorDAO actorDAO = new ActorDAO();
-    DirectorDAO directorDAO = new DirectorDAO();
-    CountryDAO countryDAO = new CountryDAO();
+    private final ActorDAO actorDAO = new ActorDAO();
+    private final DirectorDAO directorDAO = new DirectorDAO();
+    private final CountryDAO countryDAO = new CountryDAO();
 
     private final static String SQL_DELETE_MOVIE_ID = "DELETE FROM movies WHERE id = ?";
     private final static String SQL_DELETE_MOVIE_ACTOR_ID = "DELETE FROM movie_actors WHERE movie_id = ?";

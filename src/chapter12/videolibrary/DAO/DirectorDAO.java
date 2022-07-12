@@ -1,18 +1,49 @@
 package chapter12.videolibrary.DAO;
 
 import chapter12.videolibrary.models.Director;
+import chapter12.videolibrary.models.Movie;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DirectorDAO extends DAO<Director> {
+    private final static String SQL_FIND_ALL_IN_MOVIE = "SELECT d.name, d.surname, d.birthday FROM directors d " +
+            "JOIN movie_direction md ON md.director_id = d.id WHERE movie_id = ";
     private final static String SQL_INSERT_DIRECTOR =
             "INSERT INTO directors(name, surname, birthday) VALUES(?,?,?)";
     private final static String SQL_CHECK_DIRECTOR_ID = "SELECT id FROM directors " +
             "WHERE name = ? and surname = ? and birthday = ?";
 
+
+    public List<Director> findAllInMovie(Movie movie) throws SQLException {
+        MovieDao movieDao = new MovieDao();
+        int id = movieDao.getId(movie);
+        List<Director> directors = new ArrayList<>();
+        Connection connection = DBConnector.getConnection();
+        assert connection != null;
+        Statement statement = connection.createStatement();
+        ResultSet rsDirector = statement.executeQuery(SQL_FIND_ALL_IN_MOVIE + id);
+        try (connection;
+             statement;
+             rsDirector) {
+            connection.setAutoCommit(false);
+            while (rsDirector.next()) {
+                Director director = new Director();
+                director.setName(rsDirector.getString(1));
+                director.setSurname(rsDirector.getString(2));
+                director.setBirthday(rsDirector.getDate(3));
+                directors.add(director);
+            }
+        } catch (SQLException e) {
+            connection.rollback();
+            e.printStackTrace();
+        }
+        return directors;
+    }
+
     @Override
-    public List<Director> findAll() throws SQLException {
+    public List<Director> findAll() {
         return null;
     }
 

@@ -19,9 +19,6 @@ public abstract class DAO<T extends Entity> {
 
     public abstract void insert(T entity) throws SQLException;
 
-    private final static String SQL_CHECK_ACTOR_ID = "SELECT id FROM actors " +
-            "WHERE name = ? and surname = ? and birthday = ?";
-
     public abstract T update(T entity);
 
 

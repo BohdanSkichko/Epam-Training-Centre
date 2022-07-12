@@ -18,6 +18,7 @@ public class ActorDAO extends DAO<Actor> {
     private final static String SQL_GET_DIRECTORS = " SELECT a.name, a.surname, a.birthday FROM actors a " +
             "JOIN directors d ON d.name = a.name and d.surname = a.surname and d.birthday = a.birthday";
 
+
     @Override
     public List<Actor> findAll() throws SQLException {
         return null;
@@ -29,7 +30,7 @@ public class ActorDAO extends DAO<Actor> {
         MovieDao movieDao = new MovieDao();
         int id = movieDao.getId(movie);
         try (connection;
-             ResultSet rs = connection.createStatement().executeQuery((SQL_SELECT_ALL_ACTOR_MOVIE + "'" + id + "'"))) {
+             ResultSet rs = connection.createStatement().executeQuery((SQL_SELECT_ALL_ACTOR_MOVIE + id))) {
             while (rs.next()) {
                 Actor actor = new Actor();
                 actor.setName(rs.getString("name"));
@@ -47,6 +48,7 @@ public class ActorDAO extends DAO<Actor> {
     public List<Director> findAllDirectors() throws SQLException {
         List<Director> directors = new ArrayList<>();
         Connection connection = DBConnector.getConnection();
+        assert connection != null;
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(SQL_GET_DIRECTORS);
         try (connection;
@@ -68,6 +70,7 @@ public class ActorDAO extends DAO<Actor> {
     public List<Actor> findAllIfQuantityMovieOver(int quantity) throws SQLException {
         List<Actor> actors = new ArrayList<>();
         Connection connection = DBConnector.getConnection();
+        assert connection != null;
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(SQL_SELECT_ALL_ACTOR_QUANTITY_MOVIE + quantity);
         try (connection;

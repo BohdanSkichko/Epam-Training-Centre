@@ -7,6 +7,8 @@ public class Country extends Entity {
     private String name;
     private List<Movie> movies = new ArrayList<>();
 
+    public Country() {
+    }
 
     public Country(String name) {
         this.name = name;
@@ -42,11 +44,8 @@ public class Country extends Entity {
 
     @Override
     public String toString() {
-        return "Country{" +
-                "name='" + name + '\'' +
-                ", movies=" + movies +
-                ", id=" + id +
-                '}';
+        return
+                name;
     }
 
     public void setName(String name) {

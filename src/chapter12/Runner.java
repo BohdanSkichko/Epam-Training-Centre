@@ -52,17 +52,18 @@ public class Runner {
         movies.add(new Movie("The Shawshank Redemption", LocalDate.of(1994, Month.SEPTEMBER, 22)));
 
         List<Movie> movies1 = new ArrayList<>();
-        Movie movie = new Movie("movie12", LocalDate.of(2010, 3, 1), countries, actors, directors);
+        Movie movie = new Movie("movie12", LocalDate.of(2014, 11, 23), countries, actors, directors);
         MovieDao movieDao = new MovieDao();
 //       movieDao.insert(movie);
-        ActorDAO actorDAO = new ActorDAO();
-        System.out.println(actorDAO.findAllInMovie(movie));
-        System.out.println(actorDAO.findAllIfQuantityMovieOver(1));
-        System.out.println(actorDAO.findAllDirectors());
+//       movieDao.deleteIfReleaseMoreYearsAgo(7);
+//        ActorDAO actorDAO = new ActorDAO();
+//        System.out.println(actorDAO.findAllInMovie(movie));
+//        System.out.println(actorDAO.findAllIfQuantityMovieOver(1));
+//        System.out.println(actorDAO.findAllDirectors());
 //        movieDao.delete(movie);
 //        movieDao.findMoviesBetweenYears(new Date(190, Calendar.MARCH,11),new Date(212, Calendar.FEBRUARY,12));
-        System.out.println(movieDao.findMoviesBetweenYears(LocalDate.of(1990, 1, 11), LocalDate.of(2011, 1, 12)));
-
+//        System.out.println(movieDao.findMoviesBetweenYears(LocalDate.of(1990, 1, 11), LocalDate.of(2011, 1, 12)));
+//        System.out.println(movieDao.findAll());
     }
 
 }

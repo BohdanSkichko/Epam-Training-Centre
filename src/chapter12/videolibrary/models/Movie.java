@@ -2,11 +2,11 @@ package chapter12.videolibrary.models;
 
 
 import java.sql.Date;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.stream.Collectors;
 
 public class Movie extends Entity {
     private String title;
@@ -102,14 +102,20 @@ public class Movie extends Entity {
     public String getReleaseDate() {
         return String.valueOf(releaseDate);
     }
+    public LocalDate getRelease(){
+        return Instant.ofEpochMilli(releaseDate.getTime())
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+    }
 
 
     @Override
     public String toString() {
-        return
-                 title + " "+
-                " " + actors +
-                " " + releaseDate +
-                " " + countries.stream().map(Country::toString).collect(Collectors.joining(" "));
+        return "\n" +
+               " MOVIE TITLE: "+ title + "\n" +
+                " ACTORS:  " + actors.toString().replaceAll("[\\]\\[]","") + "\n" +
+                 " DIRECTORS:  " +  directors.toString().replaceAll("[\\]\\[]","") + "\n"+
+                " RELEASE DATE: " + releaseDate.toString().replaceAll("[\\]\\[]","") + "\n" +
+                " COUNTRIES: " + countries.toString().replaceAll("[\\]\\[]","");
     }
 }

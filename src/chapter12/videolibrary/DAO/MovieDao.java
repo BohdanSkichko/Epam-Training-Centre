@@ -10,11 +10,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-/*SELECT * FROM movies m
-RIGHT JOIN movie_direction md ON md.movie_id = m.id
-LEFT JOIN movie_actors ma ON ma.movie_id = m.id
-JOIN country_movie_link cml ON cml.movie_id = m.id
-where release_date between '2000-1-1' and '2012-12-12'*/
+
 public class MovieDao extends DAO<Movie> {
     private final ActorDAO actorDAO = new ActorDAO();
     private final DirectorDAO directorDAO = new DirectorDAO();
@@ -24,33 +20,60 @@ public class MovieDao extends DAO<Movie> {
     private final static String SQL_DELETE_MOVIE_ACTOR_ID = "DELETE FROM movie_actors WHERE movie_id = ?";
     private final static String SQL_DELETE_MOVIE_DIRECTION_ID = "DELETE FROM movie_direction WHERE movie_id = ?";
     private final static String SQL_DELETE_MOVIE_COUNTRY_ID = "DELETE FROM country_movie_link WHERE movie_id = ?";
-
+    private final static String SQL_DELETE_MOVIE_RELEASE_DATE = "DELETE FROM movies WHERE release_date >";
 
     private final static String SQL_GET_MOVIE_ID = "SELECT id FROM movies WHERE title = ? and release_date = ?";
 
     private final static String SQL_INSERT_COUNTRY_MOVIE_LINK = "INSERT INTO country_movie_link(country_id, movie_id) VALUES(?,?)";
     private final static String SQL_INSERT_MOVIE_DIRECTION = "INSERT INTO movie_direction(director_id, movie_id) VALUES(?,?)";
     private final static String SQL_INSERT_MOVIE_ACTORS = "INSERT INTO movie_actors(actor_id, movie_id) VALUES(?,?)";
-
-    private final static String SQL_CHECK_MOVIE_ID = "SELECT id FROM movies WHERE title = ? and release_date = ?";
-    private final static String SQL_SELECT_ALL_MOVIE = "SELECT * FROM movies";
-    private final static String SQL_SELECT_ALL_YEAR = "SELECT * FROM movies where release_date between ";
-
     private final static String SQL_INSERT_MOVIE = "INSERT INTO movies(title, release_date) VALUES(?,?)";
 
+    private final static String SQL_CHECK_MOVIE_ID = "SELECT id FROM movies WHERE title = ? AND release_date = ?";
 
-    public List<Movie> findMoviesBetweenYears(LocalDate afterYear, LocalDate thisYear) {
-        ArrayList<Movie> movies = new ArrayList<>();
-        try {
-            ResultSet resultSet = DBConnector.getConnection().createStatement().executeQuery(SQL_SELECT_ALL_YEAR
-                    + "'" + afterYear + "'" + " and " + "'" + thisYear + "'");
+    private final static String SQL_SELECT_ALL_MOVIE = "SELECT * FROM movies";
+    private final static String SQL_SELECT_ALL_YEAR = "SELECT * FROM movies WHERE release_date BETWEEN ";
+
+
+    public List<Movie> findMoviesBetweenYears(LocalDate afterYear, LocalDate thisYear) throws SQLException {
+        List<Movie> movies = new ArrayList<>();
+        List<Director> directors;
+        List<Actor> actors;
+        List<Country> countries;
+        Connection connection = DBConnector.getConnection();
+        assert connection != null;
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_YEAR
+                + "'" + afterYear + "'" + " and " + "'" + thisYear + "'");
+
+        try (connection;
+             statement;
+             resultSet) {
+            connection.setAutoCommit(false);
             while (resultSet.next()) {
+
                 Movie movie = new Movie();
                 movie.setId(resultSet.getInt("id"));
                 movie.setTitle(resultSet.getString("title"));
                 movie.setReleaseDate(resultSet.getDate("release_date"));
+
+                directors = directorDAO.findAllInMovie(movie);
+                for (Director director : directors) {
+                    movie.addDirector(director);
+                }
+
+                actors = actorDAO.findAllInMovie(movie);
+                for (Actor actor : actors) {
+                    movie.addActor(actor);
+                }
+
+                countries = countryDAO.findAllInMovie(movie);
+                for (Country country : countries) {
+                    movie.addCountry(country);
+                }
                 movies.add(movie);
             }
+            connection.commit();
         } catch (SQLException e) {
             System.err.println("SQL exception (request or table failed): " + e);
         }
@@ -60,18 +83,43 @@ public class MovieDao extends DAO<Movie> {
     @Override
     public List<Movie> findAll() throws SQLException {
         ArrayList<Movie> movies = new ArrayList<>();
-        try (Connection connection = DBConnector.getConnection()) {
-            assert connection != null;
-            try (Statement statement = connection.createStatement();
-                 ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_MOVIE)) {
-                while (resultSet.next()) {
-                    Movie movie = new Movie();
-                    movie.setId(resultSet.getInt("id"));
-                    movie.setTitle(resultSet.getString("title"));
-                    movie.setReleaseDate(resultSet.getDate("release_date"));
-                    movies.add(movie);
+        Connection connection = DBConnector.getConnection();
+        assert connection != null;
+        Statement statement = connection.createStatement();
+        List<Director> directors;
+        List<Actor> actors;
+        List<Country> countries;
+        ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_MOVIE);
+        try (connection;
+             statement;
+             resultSet) {
+            connection.setAutoCommit(false);
+            while (resultSet.next()) {
+
+                Movie movie = new Movie();
+                movie.setId(resultSet.getInt("id"));
+                movie.setTitle(resultSet.getString("title"));
+                movie.setReleaseDate(resultSet.getDate("release_date"));
+                DirectorDAO directorDAO = new DirectorDAO();
+
+                directors = directorDAO.findAllInMovie(movie);
+                for (Director director : directors) {
+                    movie.addDirector(director);
                 }
+
+                ActorDAO actorDAO = new ActorDAO();
+                actors = actorDAO.findAllInMovie(movie);
+                for (Actor actor : actors) {
+                    movie.addActor(actor);
+                }
+                CountryDAO countryDAO = new CountryDAO();
+                countries = countryDAO.findAllInMovie(movie);
+                for (Country country : countries) {
+                    movie.addCountry(country);
+                }
+                movies.add(movie);
             }
+            connection.commit();
         } catch (SQLException e) {
             System.err.println("SQL exception (request or table failed): " + e);
         }
@@ -109,6 +157,15 @@ public class MovieDao extends DAO<Movie> {
         return false;
     }
 
+    public void deleteIfReleaseMoreYearsAgo(int quantityYears) throws SQLException {
+        List<Movie> movies = findAll();
+        for (Movie movie : movies) {
+            if (LocalDate.now().getYear() - movie.getRelease().getYear() > quantityYears) {
+                delete(getId(movie));
+            }
+        }
+    }
+
     public int getId(Movie movie) {
         Connection connection = DBConnector.getConnection();
         try (connection) {
@@ -131,7 +188,7 @@ public class MovieDao extends DAO<Movie> {
     public boolean delete(Movie entity) {
         Connection connection = DBConnector.getConnection();
         try (connection) {
-            delete(this.getId(entity));
+            delete(getId(entity));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -144,56 +201,58 @@ public class MovieDao extends DAO<Movie> {
         List<Actor> actors = movie.getActors();
         List<Country> countries = movie.getCountry();
         List<Director> directors = movie.getDirectors();
-        try (connection;
-             PreparedStatement checkMovie = connection.prepareStatement(SQL_CHECK_MOVIE_ID);
-             PreparedStatement statementMovie = connection.prepareStatement(SQL_INSERT_MOVIE,
-                     Statement.RETURN_GENERATED_KEYS);
-             PreparedStatement statementCountryMovie = connection.prepareStatement(SQL_INSERT_COUNTRY_MOVIE_LINK);
-             PreparedStatement statementMovieCountry = connection.prepareStatement(SQL_INSERT_MOVIE_DIRECTION);
-             PreparedStatement statementMovieActor = connection.prepareStatement(SQL_INSERT_MOVIE_ACTORS)) {
-            connection.setAutoCommit(false);
-            for (Actor actor : actors) {
-                actorDAO.insert(actor);
-            }
-            for (Director director : directors) {
-                directorDAO.insert(director);
-            }
-            for (Country country : countries) {
-                countryDAO.insert(country);
-            }
-            checkMovie.setString(1, movie.getTitle());
-            checkMovie.setDate(2, Date.valueOf(movie.getReleaseDate()));
-            ResultSet rsMovie = checkMovie.executeQuery();
-            if (rsMovie.next()) {
-                throw new SQLException("Video library contains this movie");
-            } else {
-                statementMovie.setString(1, movie.getTitle());
-                statementMovie.setDate(2, Date.valueOf(movie.getReleaseDate()));
-                statementMovie.executeUpdate();
-                try (ResultSet generatedKeys = statementMovie.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        movie.setId((int) generatedKeys.getLong(1));
-                    } else {
-                        throw new SQLException("Creating movie failed, no ID obtained.");
+        try (connection) {
+            assert connection != null;
+            try (PreparedStatement checkMovie = connection.prepareStatement(SQL_CHECK_MOVIE_ID);
+                 PreparedStatement statementMovie = connection.prepareStatement(SQL_INSERT_MOVIE,
+                         Statement.RETURN_GENERATED_KEYS);
+                 PreparedStatement statementCountryMovie = connection.prepareStatement(SQL_INSERT_COUNTRY_MOVIE_LINK);
+                 PreparedStatement statementMovieCountry = connection.prepareStatement(SQL_INSERT_MOVIE_DIRECTION);
+                 PreparedStatement statementMovieActor = connection.prepareStatement(SQL_INSERT_MOVIE_ACTORS)) {
+                connection.setAutoCommit(false);
+                for (Actor actor : actors) {
+                    actorDAO.insert(actor);
+                }
+                for (Director director : directors) {
+                    directorDAO.insert(director);
+                }
+                for (Country country : countries) {
+                    countryDAO.insert(country);
+                }
+                checkMovie.setString(1, movie.getTitle());
+                checkMovie.setDate(2, Date.valueOf(movie.getReleaseDate()));
+                ResultSet rsMovie = checkMovie.executeQuery();
+                if (rsMovie.next()) {
+                    throw new SQLException("Video library contains this movie");
+                } else {
+                    statementMovie.setString(1, movie.getTitle());
+                    statementMovie.setDate(2, Date.valueOf(movie.getReleaseDate()));
+                    statementMovie.executeUpdate();
+                    try (ResultSet generatedKeys = statementMovie.getGeneratedKeys()) {
+                        if (generatedKeys.next()) {
+                            movie.setId((int) generatedKeys.getLong(1));
+                        } else {
+                            throw new SQLException("Creating movie failed, no ID obtained.");
+                        }
                     }
                 }
+                for (Country country : countries) {
+                    statementCountryMovie.setInt(1, country.getId());
+                    statementCountryMovie.setInt(2, movie.getId());
+                    statementCountryMovie.executeUpdate();
+                }
+                for (Director director : directors) {
+                    statementMovieCountry.setInt(1, director.getId());
+                    statementMovieCountry.setInt(2, movie.getId());
+                    statementMovieCountry.executeUpdate();
+                }
+                for (Actor actor : actors) {
+                    statementMovieActor.setInt(1, actor.getId());
+                    statementMovieActor.setInt(2, movie.getId());
+                    statementMovieActor.executeUpdate();
+                }
+                connection.commit();
             }
-            for (Country country : countries) {
-                statementCountryMovie.setInt(1, country.getId());
-                statementCountryMovie.setInt(2, movie.getId());
-                statementCountryMovie.executeUpdate();
-            }
-            for (Director director : directors) {
-                statementMovieCountry.setInt(1, director.getId());
-                statementMovieCountry.setInt(2, movie.getId());
-                statementMovieCountry.executeUpdate();
-            }
-            for (Actor actor : actors) {
-                statementMovieActor.setInt(1, actor.getId());
-                statementMovieActor.setInt(2, movie.getId());
-                statementMovieActor.executeUpdate();
-            }
-            connection.commit();
         } catch (SQLException e) {
             connection.rollback();
             e.printStackTrace();

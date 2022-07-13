@@ -6,10 +6,10 @@ import java.sql.SQLException;
 
 public class Actors extends BaseTableCreator implements TableOperations {
 
-    private final static String SQL_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS actors (Id serial primary key," +
+    private final static String SQL_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS actors (id serial PRIMARY KEY," +
             "name VARCHAR(50) NOT NULL, " +
             "surname VARCHAR(50) NOT NULL, birthday DATE NOT NULL)";
-    private final static String UNIQUE_KEY = "create unique index actors_idx on actors (name, surname, birthday)";
+    private final static String UNIQUE_KEY = "CREATE unique index actors_idx ON actors (name, surname, birthday)";
 
     public Actors() {
         super("actors");

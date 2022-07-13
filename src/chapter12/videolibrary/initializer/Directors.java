@@ -5,10 +5,10 @@ import chapter12.videolibrary.tableresource.TableOperations;
 import java.sql.SQLException;
 
 public class Directors extends BaseTableCreator implements TableOperations {
-    private final static String SQL_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS directors (Id serial primary key," +
+    private final static String SQL_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS directors (id serial PRIMARY KEY," +
             "name VARCHAR(50) NOT NULL," +
             "surname VARCHAR(50) NOT NULL, birthday DATE NOT NULL)";
-    private final static String SQL_UNIQUE_KEY = "create unique index directors_idx on directors (name, surname, birthday)";
+    private final static String SQL_UNIQUE_KEY = "CREATE unique index directors_idx ON directors (name, surname, birthday)";
 
     public Directors() {
         super("directors");

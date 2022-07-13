@@ -9,8 +9,8 @@ public class MovieDirection extends BaseTableCreator implements TableOperations 
         super("movies_direction");
     }
 
-    private final static String SQL_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS movie_direction (Id serial primary key, " +
-            "movie_id INTEGER NOT NULL, director_id INTEGER NOT NULL)";
+    private final static String SQL_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS movie_direction (id serial PRIMARY KEY, " +
+            "movie_id INTEGER REFERENCES movies(id) ON DELETE CASCADE, director_id INTEGER NOT NULL)";
     private final static String SQL_CREATE_KEY_MOVIE = "ALTER TABLE movie_direction ADD FOREIGN KEY (movie_id) " +
             "REFERENCES movies(id)";
     private final static String SQL_CREATE_KEY_DIRECTOR = "ALTER TABLE movie_direction ADD FOREIGN KEY (director_id)" +

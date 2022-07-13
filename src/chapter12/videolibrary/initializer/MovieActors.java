@@ -5,9 +5,9 @@ import chapter12.videolibrary.tableresource.TableOperations;
 import java.sql.SQLException;
 
 public class MovieActors extends BaseTableCreator implements TableOperations {
-    private final static String SQL_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS movie_actors " +
-            "(Id serial primary key, movie_id INTEGER NOT NULL, actor_id INTEGER NOT NULL)";
-    private final static String SQL_CREATE_KEY_MOVIE = " ALTER TABLE movie_actors ADD FOREIGN KEY (movie_id) " +
+    private final static String SQL_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS movie_actors" +
+            "(id serial PRIMARY KEY, movie_id INTEGER REFERENCES movies(id) ON DELETE CASCADE, actor_id INTEGER NOT NULL)";
+    private final static String SQL_CREATE_KEY_MOVIE = "ALTER TABLE movie_actors ADD FOREIGN KEY (movie_id) " +
             "REFERENCES movies(id)";
     private final static String SQL_CREATE_KEY_ACTOR = "ALTER TABLE movie_actors ADD FOREIGN KEY (actor_id) " +
             "REFERENCES actors(id)";

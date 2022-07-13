@@ -9,7 +9,7 @@ import java.util.List;
 
 public class CountryDAO extends DAO<Country> {
     private final static String SQL_FIND_ALL_IN_MOVIE = "SELECT name FROM countries c " +
-            "JOIN country_movie_link cml ON c.id = cml.country_id WHERE movie_id = ";
+            "JOIN country_movie_link cml ON c.id = cml.country_id WHERE movie_id = ?";
     private final static String SQL_INSERT_COUNTRY = "INSERT INTO countries(name) VALUES(?)";
     private final static String SQL_CHECK_COUNTRY_ID = "SELECT id FROM countries WHERE name = ?";
 
@@ -20,18 +20,19 @@ public class CountryDAO extends DAO<Country> {
         int id = movieDao.getId(movie);
         Connection connection = DBConnector.getConnection();
         assert connection != null;
-        Statement statement = connection.createStatement();
-        ResultSet rsCountry = statement.executeQuery(SQL_FIND_ALL_IN_MOVIE + id);
+        PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_ALL_IN_MOVIE);
         try (connection;
-             statement;
-             rsCountry) {
-            while (rsCountry.next()) {
+             preparedStatement) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
                 Country country = new Country();
-                country.setName(rsCountry.getString(1));
+                country.setName(resultSet.getString(1));
                 countries.add(country);
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new SQLException("SQL exception (request or table failed): " + e);
         }
         return countries;
     }
@@ -62,8 +63,8 @@ public class CountryDAO extends DAO<Country> {
         try (connection) {
             assert connection != null;
             try (
-                 PreparedStatement psCheckCountry = connection.prepareStatement(SQL_CHECK_COUNTRY_ID);
-                 PreparedStatement psInsertActor = connection.prepareStatement(SQL_INSERT_COUNTRY, Statement.RETURN_GENERATED_KEYS)) {
+                    PreparedStatement psCheckCountry = connection.prepareStatement(SQL_CHECK_COUNTRY_ID);
+                    PreparedStatement psInsertActor = connection.prepareStatement(SQL_INSERT_COUNTRY, Statement.RETURN_GENERATED_KEYS)) {
                 connection.setAutoCommit(false);
                 psCheckCountry.setString(1, country.getName());
                 ResultSet rsActor = psCheckCountry.executeQuery();
@@ -85,7 +86,7 @@ public class CountryDAO extends DAO<Country> {
             }
         } catch (SQLException e) {
             connection.rollback();
-            e.printStackTrace();
+            throw new SQLException("can't insert country" + e);
         }
     }
 

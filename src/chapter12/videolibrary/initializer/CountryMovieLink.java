@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class CountryMovieLink extends BaseTableCreator implements TableOperations {
     private final static String SQL_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS country_movie_link " +
-            "(Id serial primary key, country_id INTEGER NOT NULL, movie_id INTEGER NOT NULL)";
+            "(id serial PRIMARY KEY, country_id INTEGER NOT NULL, movie_id INTEGER REFERENCES movies(id) ON DELETE CASCADE)";
     private final static String SQL_CREATE_KEY_MOVIE = " ALTER TABLE country_movie_link ADD FOREIGN KEY (movie_id) " +
             "REFERENCES movies(id)";
     private final static String SQL_CREATE_KEY_COUNTRY = "ALTER TABLE country_movie_link ADD FOREIGN KEY (country_id) " +

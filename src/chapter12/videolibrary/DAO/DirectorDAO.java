@@ -9,9 +9,8 @@ import java.util.List;
 
 public class DirectorDAO extends DAO<Director> {
     private final static String SQL_FIND_ALL_IN_MOVIE = "SELECT d.name, d.surname, d.birthday FROM directors d " +
-            "JOIN movie_direction md ON md.director_id = d.id WHERE movie_id = ";
-    private final static String SQL_INSERT_DIRECTOR =
-            "INSERT INTO directors(name, surname, birthday) VALUES(?,?,?)";
+            "JOIN movie_direction md ON md.director_id = d.id WHERE movie_id = ?";
+    private final static String SQL_INSERT_DIRECTOR = "INSERT INTO directors(name, surname, birthday) VALUES(?,?,?)";
     private final static String SQL_CHECK_DIRECTOR_ID = "SELECT id FROM directors " +
             "WHERE name = ? and surname = ? and birthday = ?";
 
@@ -21,23 +20,25 @@ public class DirectorDAO extends DAO<Director> {
         int id = movieDao.getId(movie);
         List<Director> directors = new ArrayList<>();
         Connection connection = DBConnector.getConnection();
-        assert connection != null;
         Statement statement = connection.createStatement();
-        ResultSet rsDirector = statement.executeQuery(SQL_FIND_ALL_IN_MOVIE + id);
+        PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_ALL_IN_MOVIE);
         try (connection;
              statement;
-             rsDirector) {
+             preparedStatement) {
             connection.setAutoCommit(false);
-            while (rsDirector.next()) {
+            preparedStatement.setLong(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
                 Director director = new Director();
-                director.setName(rsDirector.getString(1));
-                director.setSurname(rsDirector.getString(2));
-                director.setBirthday(rsDirector.getDate(3));
+                director.setName(rs.getString(1));
+                director.setSurname(rs.getString(2));
+                director.setBirthday(rs.getDate(3));
                 directors.add(director);
             }
         } catch (SQLException e) {
             connection.rollback();
             e.printStackTrace();
+            throw new SQLException("can't find director" + e);
         }
         return directors;
     }
@@ -93,6 +94,7 @@ public class DirectorDAO extends DAO<Director> {
         } catch (SQLException e) {
             connection.rollback();
             e.printStackTrace();
+            throw new SQLException("can't insert director");
         }
 
     }

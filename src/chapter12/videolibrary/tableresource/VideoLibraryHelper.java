@@ -18,24 +18,24 @@ public class VideoLibraryHelper {
             "INSERT INTO directors(name, surname, birthday) VALUES(?,?,?)";
     private final static String SQL_INSERT_COUNTRY =
             "INSERT INTO countries(name) VALUES(?)";
-    private final Connection connect;
 
-    public VideoLibraryHelper() throws SQLException {
-        connect = DBConnector.getConnection();
-    }
+
     public PreparedStatement getPreparedStatementCountry() {
         PreparedStatement ps = null;
-        try {
-            ps = connect.prepareStatement(SQL_INSERT_COUNTRY);
+        Connection connection = DBConnector.getConnection();
+        try (connection) {
+            ps = connection.prepareStatement(SQL_INSERT_COUNTRY);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return ps;
     }
+
     public PreparedStatement getPreparedStatementActor() {
         PreparedStatement ps = null;
-        try {
-            ps = connect.prepareStatement(SQL_INSERT_ACTOR);
+        Connection connection = DBConnector.getConnection();
+        try (connection) {
+            ps = connection.prepareStatement(SQL_INSERT_ACTOR);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -44,17 +44,20 @@ public class VideoLibraryHelper {
 
     public PreparedStatement getPreparedStatementFilm() {
         PreparedStatement ps = null;
-        try {
-            ps = connect.prepareStatement(SQL_INSERT_MOVIE);
+        Connection connection = DBConnector.getConnection();
+        try(connection) {
+            ps = connection.prepareStatement(SQL_INSERT_MOVIE);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return ps;
     }
+
     public PreparedStatement getPreparedStatementDirector() {
         PreparedStatement ps = null;
-        try {
-            ps = connect.prepareStatement(SQL_INSERT_DIRECTOR);
+        Connection connection = DBConnector.getConnection();
+        try(connection) {
+            ps = connection.prepareStatement(SQL_INSERT_DIRECTOR);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -99,6 +102,7 @@ public class VideoLibraryHelper {
         }
         return flag;
     }
+
     public boolean insertDirector(PreparedStatement ps, Director director) {
         boolean flag = false;
         try {
@@ -112,6 +116,7 @@ public class VideoLibraryHelper {
         }
         return flag;
     }
+
     public void closeStatement(PreparedStatement ps) {
         if (ps != null) {
             try {

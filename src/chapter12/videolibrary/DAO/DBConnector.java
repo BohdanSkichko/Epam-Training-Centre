@@ -16,7 +16,8 @@ public class DBConnector {
             return DriverManager.getConnection(url, user, pass);
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException("connection error");
         }
-        return null;
+
     }
 }

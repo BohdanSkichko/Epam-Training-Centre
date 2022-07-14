@@ -19,7 +19,6 @@ public class CountryDAO extends DAO<Country> {
         MovieDao movieDao = new MovieDao();
         int id = movieDao.getId(movie);
         Connection connection = DBConnector.getConnection();
-        assert connection != null;
         PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_ALL_IN_MOVIE);
         try (connection;
              preparedStatement) {
@@ -86,7 +85,7 @@ public class CountryDAO extends DAO<Country> {
             }
         } catch (SQLException e) {
             connection.rollback();
-            throw new SQLException("can't insert country" + e);
+            throw e;
         }
     }
 

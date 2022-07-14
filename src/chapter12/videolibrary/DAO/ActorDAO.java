@@ -1,7 +1,6 @@
 package chapter12.videolibrary.DAO;
 
 import chapter12.videolibrary.models.Actor;
-import chapter12.videolibrary.models.Director;
 import chapter12.videolibrary.models.Movie;
 
 import java.sql.*;
@@ -11,11 +10,11 @@ import java.util.List;
 public class ActorDAO extends DAO<Actor> {
     private final static String SQL_SELECT_ALL_ACTOR_MOVIE = "SELECT * FROM actors a " +
             "JOIN movie_actors ma ON a.id = ma.actor_id WHERE movie_id = ?";
-    private final static String SQL_SELECT_ALL_ACTOR_QUANTITY_MOVIE = "SELECT name, surname, birthday FROM actors a " +
+    private final static String SQL_SELECT_ALL_ACTOR_QUANTITY_MOVIE = "SELECT a.* FROM actors a " +
             "JOIN movie_actors ma ON a.id = ma.actor_id GROUP BY a.id HAVING count(movie_id) > ?";
     private final static String SQL_INSERT_ACTOR = "INSERT INTO actors(name, surname, birthday) VALUES(?,?,?)";
     private final static String SQL_CHECK_ACTOR_ID = "SELECT id FROM actors WHERE name = ? and surname = ? and birthday = ?";
-    private final static String SQL_GET_DIRECTORS = " SELECT a.name, a.surname, a.birthday FROM actors a " +
+    private final static String SQL_GET_DIRECTORS = " SELECT a.* FROM actors a " +
             "JOIN directors d ON d.name = a.name and d.surname = a.surname and d.birthday = a.birthday";
 
 
@@ -35,7 +34,7 @@ public class ActorDAO extends DAO<Actor> {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Actor actor = getActor(resultSet);
+                Actor actor = mapActor(resultSet);
                 actors.add(actor);
             }
         } catch (SQLException e) {
@@ -55,7 +54,7 @@ public class ActorDAO extends DAO<Actor> {
              statement;
              rs) {
             while (rs.next()) {
-                Actor actor = getActor(rs);
+                Actor actor = mapActor(rs);
                 actors.add(actor);
             }
         } catch (SQLException e) {
@@ -64,8 +63,9 @@ public class ActorDAO extends DAO<Actor> {
         return actors;
     }
 
-    private Actor getActor(ResultSet rs) throws SQLException {
+    private Actor mapActor(ResultSet rs) throws SQLException {
         Actor actor = new Actor();
+        actor.setId(rs.getLong("id"));
         actor.setName(rs.getString("name"));
         actor.setSurname(rs.getString("surname"));
         actor.setBirthday(rs.getDate("birthday"));
@@ -83,7 +83,7 @@ public class ActorDAO extends DAO<Actor> {
             preparedStatement.setInt(1, quantity);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Actor actor = getActor(resultSet);
+                Actor actor = mapActor(resultSet);
                 actors.add(actor);
             }
 
@@ -140,7 +140,7 @@ public class ActorDAO extends DAO<Actor> {
             connection.commit();
         } catch (SQLException e) {
             connection.rollback();
-            throw new SQLException("Can't insert Actor" + e);
+            throw e;
         }
 
     }

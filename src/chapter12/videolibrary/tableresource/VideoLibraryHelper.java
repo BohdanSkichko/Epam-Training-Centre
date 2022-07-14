@@ -45,7 +45,7 @@ public class VideoLibraryHelper {
     public PreparedStatement getPreparedStatementFilm() {
         PreparedStatement ps = null;
         Connection connection = DBConnector.getConnection();
-        try(connection) {
+        try (connection) {
             ps = connection.prepareStatement(SQL_INSERT_MOVIE);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -56,7 +56,7 @@ public class VideoLibraryHelper {
     public PreparedStatement getPreparedStatementDirector() {
         PreparedStatement ps = null;
         Connection connection = DBConnector.getConnection();
-        try(connection) {
+        try (connection) {
             ps = connection.prepareStatement(SQL_INSERT_DIRECTOR);
         } catch (SQLException e) {
             e.printStackTrace();

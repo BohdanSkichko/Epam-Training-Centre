@@ -41,7 +41,7 @@ public class TestMovie {
         movies.add(new Movie("Titanic", LocalDate.of(1997, Month.DECEMBER, 14)));
         movies.add(new Movie("The Shawshank Redemption", LocalDate.of(1994, Month.SEPTEMBER, 22)));
 
-        Movie movie = new Movie("movie", LocalDate.of(2018, 11, 1), countries, actors, directors);
+        Movie movie = new Movie("movie", LocalDate.of(2022, 11, 1), countries, actors, directors);
         return movie;
     }
 }

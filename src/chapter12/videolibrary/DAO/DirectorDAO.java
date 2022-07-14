@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DirectorDAO extends DAO<Director> {
-    private final static String SQL_FIND_ALL_IN_MOVIE = "SELECT d.name, d.surname, d.birthday FROM directors d " +
+    private final static String SQL_FIND_ALL_IN_MOVIE = "SELECT * FROM directors d " +
             "JOIN movie_direction md ON md.director_id = d.id WHERE movie_id = ?";
     private final static String SQL_INSERT_DIRECTOR = "INSERT INTO directors(name, surname, birthday) VALUES(?,?,?)";
     private final static String SQL_CHECK_DIRECTOR_ID = "SELECT id FROM directors " +
@@ -29,18 +29,24 @@ public class DirectorDAO extends DAO<Director> {
             preparedStatement.setLong(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                Director director = new Director();
-                director.setName(rs.getString(1));
-                director.setSurname(rs.getString(2));
-                director.setBirthday(rs.getDate(3));
+                Director director = mapDirector(rs);
                 directors.add(director);
             }
         } catch (SQLException e) {
             connection.rollback();
             e.printStackTrace();
-            throw new SQLException("can't find director" + e);
+            throw e;
         }
         return directors;
+    }
+
+    private Director mapDirector(ResultSet rs) throws SQLException {
+        Director director = new Director();
+        director.setId(rs.getLong("id"));
+        director.setName(rs.getString("name"));
+        director.setSurname(rs.getString("surname"));
+        director.setBirthday(rs.getDate("birthday"));
+        return director;
     }
 
     @Override

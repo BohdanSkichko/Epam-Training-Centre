@@ -18,7 +18,7 @@ public class MovieDirection extends BaseTableCreator implements TableOperations 
 
     @Override
     public void createTable() throws SQLException {
-        super.executeSqlStatement(SQL_CREATE_TABLE,"table created " + tableName);
+        super.executeSqlStatement(SQL_CREATE_TABLE, "table created " + tableName);
     }
 
     @Override

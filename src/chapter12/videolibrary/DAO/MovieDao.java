@@ -21,7 +21,7 @@ public class MovieDao extends DAO<Movie> {
     private final static String SQL_DELETE_MOVIE_COUNTRY_ID = "DELETE FROM country_movie_link WHERE movie_id = ?";
 
     private final static String SQL_DELETE_MOVIE_RELEASE_DATE = "SELECT id FROM movies WHERE " +
-            "release_date < NOW() - INTERVAL ";
+            "release_date < date_trunc('YEAR',NOW())-INTERVAL ";
 
     private final static String SQL_GET_MOVIE_ID = "SELECT id FROM movies WHERE title = ? and release_date = ?";
 
@@ -32,24 +32,20 @@ public class MovieDao extends DAO<Movie> {
 
     private final static String SQL_CHECK_MOVIE_ID = "SELECT id FROM movies WHERE title = ? AND release_date = ?";
 
-    private final static String ALL_MOVIES_RELEASE_LAST_YEAR_AND_NOW = "SELECT * FROM movies WHERE release_date" +
-            " BETWEEN NOW() - INTERVAL '1 YEARS' AND NOW()";
+    private final static String ALL_MOVIES_RELEASE_LAST_YEAR_AND_NOW = "SELECT * FROM movies WHERE release_date > " +
+            "date_trunc('YEAR',NOW()-INTERVAL '1 YEAR')";
 
 
     public List<Movie> findMoviesReleaseLastYearAndNow() throws SQLException {
         List<Movie> movies = new ArrayList<>();
         Connection connection = DBConnector.getConnection();
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(ALL_MOVIES_RELEASE_LAST_YEAR_AND_NOW);
         try (connection;
-             statement;
-             resultSet) {
+             statement) {
+            ResultSet resultSet = statement.executeQuery(ALL_MOVIES_RELEASE_LAST_YEAR_AND_NOW);
             connection.setAutoCommit(false);
             while (resultSet.next()) {
-                Movie movie = new Movie();
-                movie.setId(resultSet.getInt("id"));
-                movie.setTitle(resultSet.getString("title"));
-                movie.setReleaseDate(resultSet.getDate("release_date"));
+                Movie movie = mapMovie(resultSet);
                 List<Director> directors = directorDAO.findAllInMovie(movie);
                 for (Director director : directors) {
                     movie.addDirector(director);
@@ -69,6 +65,14 @@ public class MovieDao extends DAO<Movie> {
             throw new SQLException("SQL exception (request or table failed): " + e);
         }
         return movies;
+    }
+
+    private Movie mapMovie(ResultSet resultSet) throws SQLException {
+        Movie movie = new Movie();
+        movie.setId(resultSet.getInt("id"));
+        movie.setTitle(resultSet.getString("title"));
+        movie.setReleaseDate(resultSet.getDate("release_date"));
+        return movie;
     }
 
     @Override

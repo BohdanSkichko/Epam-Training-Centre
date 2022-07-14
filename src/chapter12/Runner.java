@@ -22,16 +22,16 @@ public class Runner {
 //        }
         Movie movie = TestMovie.getTestMovie();
         MovieDao movieDao = new MovieDao();
-//        movieDao.insert(movie);
+        movieDao.insert(movie);
         CountryDAO countryDAO = new CountryDAO();
         System.out.println(countryDAO.findAllInMovie(movie));
-        movieDao.deleteIfReleaseMoreYearsAgo(7);
+//        movieDao.deleteIfReleaseMoreYearsAgo(7);
         ActorDAO actorDAO = new ActorDAO();
         DirectorDAO directorDAO = new DirectorDAO();
         System.out.println(directorDAO.findAllInMovie(movie));
         System.out.println(actorDAO.findAllInMovie(movie));
 //        movieDao.deleteIfReleaseMoreYearsAgo(5);
-        System.out.println(actorDAO.findAllIfMovieQuantityOver(0));
+        System.out.println(actorDAO.findAllIfMovieQuantityOver(1));
         System.out.println(actorDAO.findAllIfDirector());
 //        movieDao.delete(movie);
         System.out.println(movieDao.findMoviesReleaseLastYearAndNow());

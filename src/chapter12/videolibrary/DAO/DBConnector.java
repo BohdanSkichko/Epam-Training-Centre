@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 public class DBConnector {
     private static final String BASE_NAME = "database";
+
     public static Connection getConnection() {
         try {
             ResourceBundle resource = ResourceBundle.getBundle(BASE_NAME);

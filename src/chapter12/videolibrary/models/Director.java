@@ -30,6 +30,7 @@ public class Director extends Entity {
     public Director() {
 
     }
+
     public List<Movie> getMovies() {
         return movies;
     }
@@ -65,9 +66,9 @@ public class Director extends Entity {
     @Override
     public String toString() {
         return
-                 name + " " +
-                surname + " " +
-                birthday;
+                name + " " +
+                        surname + " " +
+                        birthday;
     }
 
 }

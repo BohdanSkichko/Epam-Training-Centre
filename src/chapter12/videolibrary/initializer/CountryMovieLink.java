@@ -18,7 +18,7 @@ public class CountryMovieLink extends BaseTableCreator implements TableOperation
 
     @Override
     public void createTable() throws SQLException {
-        super.executeSqlStatement(SQL_CREATE_TABLE,"table created " + tableName);
+        super.executeSqlStatement(SQL_CREATE_TABLE, "table created " + tableName);
     }
 
     @Override

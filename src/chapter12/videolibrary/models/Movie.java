@@ -102,7 +102,8 @@ public class Movie extends Entity {
     public String getReleaseDate() {
         return String.valueOf(releaseDate);
     }
-    public LocalDate getRelease(){
+
+    public LocalDate getRelease() {
         return Instant.ofEpochMilli(releaseDate.getTime())
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate();
@@ -112,10 +113,10 @@ public class Movie extends Entity {
     @Override
     public String toString() {
         return "\n" +
-               " MOVIE TITLE: "+ title + "\n" +
-                " ACTORS:  " + actors.toString().replaceAll("[\\]\\[]","") + "\n" +
-                 " DIRECTORS:  " +  directors.toString().replaceAll("[\\]\\[]","") + "\n"+
-                " RELEASE DATE: " + releaseDate.toString().replaceAll("[\\]\\[]","") + "\n" +
-                " COUNTRIES: " + countries.toString().replaceAll("[\\]\\[]","");
+                " MOVIE TITLE: " + title + "\n" +
+                " ACTORS:  " + actors.toString().replaceAll("[\\]\\[]", "") + "\n" +
+                " DIRECTORS:  " + directors.toString().replaceAll("[\\]\\[]", "") + "\n" +
+                " RELEASE DATE: " + releaseDate.toString().replaceAll("[\\]\\[]", "") + "\n" +
+                " COUNTRIES: " + countries.toString().replaceAll("[\\]\\[]", "");
     }
 }
